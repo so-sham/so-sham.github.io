@@ -31,6 +31,13 @@ export function ContactSection() {
                 Email
               </a>
               <a
+                href="tel:+918792889808"
+                className="contact-btn contact-btn--pink rounded-full border px-[22px] py-3 font-mono text-[13px] text-[oklch(0.97_0.02_300)] no-underline"
+                style={{ borderColor: "oklch(0.72 0.19 350)" }}
+              >
+                +91 87928 89808
+              </a>
+              <a
                 href="https://www.linkedin.com/in/shamithagowda/"
                 target="_blank"
                 rel="noreferrer"
@@ -47,6 +54,15 @@ export function ContactSection() {
                 style={{ borderColor: "oklch(1 0 0 / 0.3)" }}
               >
                 GitHub
+              </a>
+              <a
+                href="https://drive.google.com/file/d/1_GlKkA0y40Uh7mD7SMZ92rjjpmweOYcU/view?usp=sharing"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-btn contact-btn--ghost rounded-full border px-[22px] py-3 font-mono text-[13px] text-[oklch(0.97_0.02_300)] no-underline"
+                style={{ borderColor: "oklch(1 0 0 / 0.3)" }}
+              >
+                View CV
               </a>
               <a
                 href="/assets/Shamitha-Gowda-Resume.pdf"
