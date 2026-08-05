@@ -1,30 +1,26 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google"
+import { Archivo, Fragment_Mono } from "next/font/google"
 import "./globals.css"
 
-const geist = Geist({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-archivo",
+  weight: ["500", "600", "700", "800", "900"],
   display: "swap",
 })
 
-const geistMono = Geist_Mono({
+const fragmentMono = Fragment_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
-  display: "swap",
-})
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-fragment-mono",
+  weight: ["400"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
   title: "Sham's digital home",
-  description: "Product Manager. Fitness Coach. Rebel.",
+  description:
+    "Good products solve problems. Great products change behaviour. I build both.",
 }
 
 export default function RootLayout({
@@ -35,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
+      className={`${archivo.variable} ${fragmentMono.variable}`}
     >
       <head>
         <link
