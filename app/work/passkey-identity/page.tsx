@@ -43,7 +43,7 @@ export default function PasskeyIdentityPage() {
         />
       }
       spineItems={SPINE}
-      prev={{ label: "← All work", href: "/#sec-work" }}
+      prev={{ label: "← Guided service journey", href: "/work/guided-journey" }}
       next={{ label: "Next: One Health Cayman →", href: "/work/one-health-cayman" }}
     >
       <CsHeading n="04" id="pk-setup">
