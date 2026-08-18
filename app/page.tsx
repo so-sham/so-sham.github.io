@@ -19,7 +19,7 @@ export default function Home() {
         text="PRODUCT MANAGEMENT ◆ AI ENGINEERING ◆ GROWTH ◆ 0→1 ◆ ANALYTICS ◆"
         color="oklch(0.72 0.19 350)"
         speed="fast"
-        tilt="-1deg"
+        tilt="0deg"
       />
       <ImpactSection />
       <GlobalSection />
@@ -27,7 +27,7 @@ export default function Home() {
         text="INDIA ◆ CAYMAN ISLANDS ◆ SINGAPORE ◆ UNITED STATES ◆ GREECE ◆"
         color="oklch(0.62 0.12 264)"
         speed="reverse"
-        tilt="1deg"
+        tilt="0deg"
       />
       <AiSection />
       <TimelineSection />

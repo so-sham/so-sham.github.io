@@ -52,8 +52,8 @@ export function GlobalSection() {
         <div
           className="absolute top-2 hidden h-px overflow-visible md:block"
           style={{
-            left: "8%",
-            right: "8%",
+            left: "calc(10% - 9.6px)",
+            right: "calc(10% - 9.6px)",
             background: "oklch(0.62 0.12 264 / 0.4)",
             transform: revealed ? "scaleX(1)" : "scaleX(0)",
             transformOrigin: "left",
@@ -68,12 +68,12 @@ export function GlobalSection() {
             }}
           />
         </div>
-        <div className="flex flex-wrap justify-between gap-7">
+        <div className="grid grid-cols-2 gap-7 sm:grid-cols-3 md:grid-cols-5 md:gap-6">
           <RevealProvider revealed={revealed}>
             {GEO.map((place, idx) => (
-              <RevealItem key={place.city} index={idx} className="flex-1 basis-60 text-left">
+              <RevealItem key={place.city} index={idx} className="text-left">
                 <div
-                  className="animate-dot-pulse mb-5 h-4 w-4 rounded-full"
+                  className="animate-dot-pulse mb-5 h-4 w-4 rounded-full md:mx-auto"
                   style={{ background: "oklch(0.62 0.12 264)" }}
                 />
                 <div className="mb-2 font-sans text-[1.2rem] font-bold">

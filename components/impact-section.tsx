@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Smartphone, TrendingUp, Users, FlaskConical, Zap, type LucideIcon } from "lucide-react"
 import { useReveal, RevealProvider, RevealItem } from "@/components/reveal"
 
 const ACCENT1 = "oklch(0.72 0.19 350)"
@@ -14,14 +15,15 @@ type Stat = {
   label: string
   detail: string
   color: string
+  icon: LucideIcon
 }
 
 const STATS: Stat[] = [
-  { id: "installs", to: 3.67, decimals: 2, suffix: "M", label: "App installs, NH Care", detail: "1.64M → 3.67M in three years (+124%)", color: ACCENT1 },
-  { id: "revenue", to: 3, decimals: 0, suffix: "×", label: "Digital revenue growth", detail: "₹4.4Cr → ₹13.6Cr / month", color: ACCENT2 },
-  { id: "interviews", to: 150, decimals: 0, suffix: "+", label: "User interviews conducted", detail: "10+ nationalities across India, Cayman, US", color: ACCENT1 },
-  { id: "experiments", to: 20, decimals: 0, suffix: "+", label: "Funnel experiments run", detail: "Mixpanel introduced org-wide", color: ACCENT2 },
-  { id: "automation", to: 80, decimals: 0, suffix: "%", label: "Process automation, Cayman", detail: "Digital payments: near-zero → $50K+/month", color: ACCENT1 },
+  { id: "installs", to: 3.67, decimals: 2, suffix: "M", label: "App installs, NH Care", detail: "1.64M → 3.67M in three years (+124%)", color: ACCENT1, icon: Smartphone },
+  { id: "revenue", to: 3, decimals: 0, suffix: "×", label: "Digital revenue growth", detail: "₹4.4Cr → ₹13.6Cr / month", color: ACCENT2, icon: TrendingUp },
+  { id: "interviews", to: 150, decimals: 0, suffix: "+", label: "User interviews conducted", detail: "10+ nationalities across India, Cayman, US", color: ACCENT1, icon: Users },
+  { id: "experiments", to: 20, decimals: 0, suffix: "+", label: "Funnel experiments run", detail: "Mixpanel introduced org-wide", color: ACCENT2, icon: FlaskConical },
+  { id: "automation", to: 80, decimals: 0, suffix: "%", label: "Process automation, Cayman", detail: "Digital payments: near-zero → $50K+/month", color: ACCENT1, icon: Zap },
 ]
 
 const CIRCUMFERENCE = 2 * Math.PI * 30
@@ -50,38 +52,47 @@ function StatRing({ stat, delay }: { stat: Stat; delay: number }) {
   const value = stat.to * progress
   const display = value.toFixed(stat.decimals) + stat.suffix
 
+  const Icon = stat.icon
+
   return (
     <div className="flex items-center gap-4.5">
-      <svg
-        width="64"
-        height="64"
-        viewBox="0 0 72 72"
-        className="shrink-0"
-        style={{ transform: "rotate(-90deg)" }}
-      >
-        <circle
-          cx="36"
-          cy="36"
-          r="30"
-          fill="none"
-          stroke="oklch(1 0 0 / 0.1)"
-          strokeWidth="4"
+      <div className="relative shrink-0" style={{ width: 64, height: 64 }}>
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 72 72"
+          style={{ transform: "rotate(-90deg)" }}
+        >
+          <circle
+            cx="36"
+            cy="36"
+            r="30"
+            fill="none"
+            stroke="oklch(1 0 0 / 0.1)"
+            strokeWidth="4"
+          />
+          <circle
+            cx="36"
+            cy="36"
+            r="30"
+            fill="none"
+            stroke={stat.color}
+            strokeWidth="4"
+            strokeLinecap="round"
+            style={{
+              strokeDasharray: CIRCUMFERENCE,
+              strokeDashoffset: CIRCUMFERENCE * (1 - progress),
+              transition: "stroke-dashoffset 200ms linear",
+            }}
+          />
+        </svg>
+        <Icon
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          size={24}
+          strokeWidth={2}
+          style={{ color: stat.color }}
         />
-        <circle
-          cx="36"
-          cy="36"
-          r="30"
-          fill="none"
-          stroke={stat.color}
-          strokeWidth="4"
-          strokeLinecap="round"
-          style={{
-            strokeDasharray: CIRCUMFERENCE,
-            strokeDashoffset: CIRCUMFERENCE * (1 - progress),
-            transition: "stroke-dashoffset 200ms linear",
-          }}
-        />
-      </svg>
+      </div>
       <div>
         <div
           className="mb-2 font-mono font-bold"
