@@ -62,6 +62,13 @@
   background: var(--accent-blue-tint);
 }
 
+/* Grid items default to min-width:auto, so a child with a large intrinsic
+   size (a <video>, an aspect-ratio box) can blow out its whole column.
+   Nothing on this site wants content-based track sizing. */
+.grid > * {
+  min-width: 0;
+}
+
 a {
   transition: color 0.18s ease, opacity 0.18s ease;
 }

@@ -91,7 +91,11 @@ export function AutoVideo({
       muted
       playsInline
       preload="metadata"
-      className={cn("h-full w-full", fit === "cover" ? "object-cover" : "object-contain", className)}
+      className={cn(
+        "absolute inset-0 h-full w-full",
+        fit === "cover" ? "object-cover" : "object-contain",
+        className
+      )}
     />
   )
 }

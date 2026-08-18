@@ -8,7 +8,7 @@ export function Statement() {
     <section id="sec-statement" className="pt-[132px] pb-26">
       <Container>
         <div className="grid items-end gap-14 md:grid-cols-[1.15fr_0.85fr] md:gap-18">
-          <Reveal>
+          <Reveal className="order-2 md:order-1">
             <Eyebrow n="01" label="Statement" className="mb-6" />
             <h1 className="mb-6 max-w-[16ch] font-serif text-[clamp(40px,4.6vw,68px)] leading-[1.04] font-light tracking-[-0.022em] text-ink">
               I build for people who did not <em className="em-accent">choose</em> to be users.
@@ -23,7 +23,7 @@ export function Statement() {
               through deployment.
             </p>
           </Reveal>
-          <Reveal index={1}>
+          <Reveal index={1} className="order-1 md:order-2">
             <Media ratio="4/5" className="bg-paper-tint">
               <FillImg src="/assets/img/hero-portrait.webp" alt="Shamitha Gowda" />
             </Media>

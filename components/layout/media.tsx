@@ -16,7 +16,7 @@ export function Media({
 }) {
   return (
     <div
-      className={cn("relative overflow-hidden", className)}
+      className={cn("relative min-w-0 overflow-hidden", className)}
       style={{ aspectRatio: ratio, ...style }}
     >
       {children}
