@@ -65,6 +65,26 @@
 a {
   transition: color 0.18s ease, opacity 0.18s ease;
 }
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.nav-link {
+  text-decoration: none !important;
+}
+.nav-link:hover span:last-child {
+  color: var(--rust);
+}
+
+/* Standard body/content link: accent blue, rust on hover */
+.link {
+  color: var(--accent-blue);
+}
+.link:hover {
+  color: var(--rust);
+}
 
 /* ===== Emphasis system ===== */
 .em-accent {

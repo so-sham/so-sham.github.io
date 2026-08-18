@@ -1,0 +1,97 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { cn } from "@/lib/cn"
+
+type AutoVideoProps = {
+  src: string
+  poster?: string
+  rate?: number
+  loop?: boolean
+  playlist?: string[]
+  fit?: "cover" | "contain"
+  className?: string
+}
+
+/**
+ * Autoplaying, always-muted background video: plays while in view (±120px
+ * viewport margin), pauses out of view, and — for the one 3-clip Cayman
+ * playlist — advances to the next clip on `ended`. Mute/rate must be set
+ * imperatively (framework-rendered boolean attributes don't reliably reach
+ * the DOM element, and playbackRate resets whenever a new src loads).
+ */
+export function AutoVideo({
+  src,
+  poster,
+  rate = 1,
+  loop = true,
+  playlist,
+  fit = "cover",
+  className,
+}: AutoVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+
+    const hasPlaylist = !!playlist?.length
+
+    const prime = () => {
+      v.muted = true
+      v.defaultMuted = true
+      v.volume = 0
+      v.loop = hasPlaylist ? false : loop
+      v.playbackRate = rate
+    }
+
+    prime()
+
+    const onLoadedData = () => prime()
+
+    const onEnded = () => {
+      if (!hasPlaylist || !playlist) return
+      const idx = Math.max(0, playlist.indexOf(v.getAttribute("src") ?? ""))
+      const next = playlist[(idx + 1) % playlist.length]
+      v.src = next
+      v.load()
+      prime()
+      v.play().catch(() => {})
+    }
+
+    v.addEventListener("loadeddata", onLoadedData)
+    v.addEventListener("ended", onEnded)
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          prime()
+          v.play().catch(() => {})
+        } else {
+          v.pause()
+        }
+      },
+      { rootMargin: "120px 0px 120px 0px", threshold: 0 }
+    )
+    observer.observe(v)
+
+    return () => {
+      v.removeEventListener("loadeddata", onLoadedData)
+      v.removeEventListener("ended", onEnded)
+      observer.disconnect()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      muted
+      playsInline
+      preload="metadata"
+      className={cn("h-full w-full", fit === "cover" ? "object-cover" : "object-contain", className)}
+    />
+  )
+}
