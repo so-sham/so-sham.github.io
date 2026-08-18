@@ -1,26 +1,34 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Archivo, Fragment_Mono } from "next/font/google"
+import { Newsreader, Geist, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
-const archivo = Archivo({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-archivo",
-  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-newsreader",
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
   display: "swap",
 })
 
-const fragmentMono = Fragment_Mono({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-fragment-mono",
-  weight: ["400"],
+  variable: "--font-geist",
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  weight: ["400", "500"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Sham's digital home",
+  title: "Shamitha Gowda",
   description:
-    "Good products solve problems. Great products change behaviour. I build both.",
+    "Product manager, four years, working 0→1 and at scale across India, the Cayman Islands and the US — most of it in consumer healthcare, where nobody arrives by choice.",
 }
 
 export default function RootLayout({
@@ -31,15 +39,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${fragmentMono.variable}`}
+      className={`${newsreader.variable} ${geist.variable} ${jetbrainsMono.variable}`}
     >
-      <head>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' fontSize='75'>💜</text></svg>"
-        />
-      </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="bg-paper font-sans text-ink antialiased">
+        {children}
+      </body>
     </html>
   )
 }
