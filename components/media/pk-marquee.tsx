@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/cn"
 
 /** Horizontal marquee rail: the image set duplicated once, animated exactly
@@ -19,7 +20,7 @@ export function PkMarquee({
         {doubled.map((img, i) => (
           <img
             key={i}
-            src={img.src}
+            src={asset(img.src)}
             alt={i < images.length ? img.alt : ""}
             aria-hidden={i >= images.length}
             loading="lazy"

@@ -1,4 +1,5 @@
 import type React from "react"
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/cn"
 
 /** Fixed aspect-ratio box for images/video, with the media absolutely
@@ -53,7 +54,7 @@ export function FillImg({
 }) {
   return (
     <img
-      src={src}
+      src={asset(src)}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
       decoding={priority ? "sync" : "async"}

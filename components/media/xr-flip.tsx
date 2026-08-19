@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/cn"
 
 /** 11-page report flip: all pages stacked absolutely, each visible for ~8.2%
@@ -19,7 +20,7 @@ export function XrFlip({
       {images.map((src, i) => (
         <img
           key={src}
-          src={src}
+          src={asset(src)}
           alt={i === 0 ? alt : ""}
           width={700}
           height={646}

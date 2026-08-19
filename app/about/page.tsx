@@ -7,12 +7,13 @@ import { Eyebrow } from "@/components/layout/eyebrow"
 import { Media, FillImg } from "@/components/layout/media"
 import { Reveal } from "@/components/reveal"
 import { CsStatRow } from "@/components/case-study/case-study-kit"
+import { asset } from "@/lib/asset"
 
 export const metadata: Metadata = {
   title: "About — Shamitha Gowda",
 }
 
-const CV_HREF = "/assets/Shamitha-Gowda-Resume.pdf"
+const CV_HREF = asset("/assets/Shamitha-Gowda-Resume.pdf")
 const CALENDLY_HREF = "https://calendar.app.google/N412NUMFDHnZgN8fA"
 const EMAIL = "shamitha2807@gmail.com"
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/cn"
 
 type AutoVideoProps = {
@@ -31,11 +32,18 @@ export function AutoVideo({
 }: AutoVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // Resolved together so the `ended` handler below can still find the current
+  // clip in the playlist by string identity — `src` and every `playlist` entry
+  // must be fingerprinted the same way or `indexOf` stops matching.
+  const srcUrl = asset(src)
+  const posterUrl = poster ? asset(poster) : undefined
+  const playlistUrls = playlist?.map((clip) => asset(clip))
+
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
 
-    const hasPlaylist = !!playlist?.length
+    const hasPlaylist = !!playlistUrls?.length
 
     const prime = () => {
       v.muted = true
@@ -50,9 +58,9 @@ export function AutoVideo({
     const onLoadedData = () => prime()
 
     const onEnded = () => {
-      if (!hasPlaylist || !playlist) return
-      const idx = Math.max(0, playlist.indexOf(v.getAttribute("src") ?? ""))
-      const next = playlist[(idx + 1) % playlist.length]
+      if (!hasPlaylist || !playlistUrls) return
+      const idx = Math.max(0, playlistUrls.indexOf(v.getAttribute("src") ?? ""))
+      const next = playlistUrls[(idx + 1) % playlistUrls.length]
       v.src = next
       v.load()
       prime()
@@ -71,7 +79,7 @@ export function AutoVideo({
     const prewarm = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
-        if (poster && !v.poster) v.poster = poster
+        if (posterUrl && !v.poster) v.poster = posterUrl
         if (v.preload !== "auto") {
           v.preload = "auto"
           v.load()
@@ -107,7 +115,7 @@ export function AutoVideo({
   return (
     <video
       ref={videoRef}
-      src={src}
+      src={srcUrl}
       muted
       playsInline
       preload="none"

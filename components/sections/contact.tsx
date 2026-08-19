@@ -1,8 +1,9 @@
 import { Eyebrow } from "@/components/layout/eyebrow"
 import { Section } from "@/components/layout/section"
 import { Reveal } from "@/components/reveal"
+import { asset } from "@/lib/asset"
 
-const CV_HREF = "/assets/Shamitha-Gowda-Resume.pdf"
+const CV_HREF = asset("/assets/Shamitha-Gowda-Resume.pdf")
 const CALENDLY_HREF = "https://calendar.app.google/N412NUMFDHnZgN8fA"
 const LINKEDIN_HREF = "https://www.linkedin.com/in/shamithagowda/"
 const GITHUB_HREF = "https://github.com/so-sham"

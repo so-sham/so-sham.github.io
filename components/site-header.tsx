@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/cn"
 import { scrollToSection } from "@/lib/scroll-to-section"
 
@@ -14,7 +15,7 @@ const SECTION_LINKS = [
   { n: "05", label: "Contact", id: "sec-contact" },
 ] as const
 
-const CV_HREF = "/assets/Shamitha-Gowda-Resume.pdf"
+const CV_HREF = asset("/assets/Shamitha-Gowda-Resume.pdf")
 
 export function SiteHeader() {
   const pathname = usePathname()
