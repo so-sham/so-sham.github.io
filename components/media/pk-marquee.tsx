@@ -22,6 +22,8 @@ export function PkMarquee({
             src={img.src}
             alt={i < images.length ? img.alt : ""}
             aria-hidden={i >= images.length}
+            loading="lazy"
+            decoding="async"
             className="h-full w-auto border border-rule-warm"
           />
         ))}

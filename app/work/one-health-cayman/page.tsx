@@ -153,7 +153,7 @@ export default function OneHealthCaymanPage() {
       </CsPara>
       <CsFigure caption="Platform walkthrough. Screen recording, redacted.">
         <Media ratio="816/352" className="bg-[#0B0B0B]">
-          <AutoVideo src="/assets/video/cayman-2.mp4" poster="/assets/video/cayman-2-poster.jpg" />
+          <AutoVideo src="/assets/video/cayman-2.mp4" poster="/assets/video/cayman-2-poster.webp" />
         </Media>
       </CsFigure>
 
@@ -167,7 +167,7 @@ export default function OneHealthCaymanPage() {
       </CsPara>
       <CsFigure caption="Portal workflows in use. Screen recording, redacted.">
         <Media ratio="832/368" className="bg-[#0B0B0B]">
-          <AutoVideo src="/assets/video/cayman-3.mp4" poster="/assets/video/cayman-3-poster.jpg" />
+          <AutoVideo src="/assets/video/cayman-3.mp4" poster="/assets/video/cayman-3-poster.webp" />
         </Media>
       </CsFigure>
 

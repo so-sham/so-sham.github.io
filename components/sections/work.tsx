@@ -36,7 +36,7 @@ export function Work() {
           <Media ratio="4/3" className="bg-paper-tint transition-[border-color] duration-250 group-hover:border-ink-35">
             <AutoVideo
               src="/assets/video/guided-journey-demo.mp4"
-              poster="/assets/video/guided-journey-demo-poster.jpg"
+              poster="/assets/video/guided-journey-demo-poster.webp"
               rate={1.75}
               fit="contain"
             />
@@ -94,7 +94,7 @@ export function Work() {
           <Media ratio="16/9" className="bg-[#0B0B0B] transition-[border-color] duration-250 group-hover:border-ink-35">
             <AutoVideo
               src="/assets/video/cayman-1.mp4"
-              poster="/assets/video/cayman-1-poster.jpg"
+              poster="/assets/video/cayman-1-poster.webp"
               rate={1.75}
               playlist={["/assets/video/cayman-1.mp4", "/assets/video/cayman-2.mp4", "/assets/video/cayman-3.mp4"]}
             />

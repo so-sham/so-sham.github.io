@@ -16,7 +16,11 @@ encode() {
     -c:v libx264 -preset slow -crf 27 -profile:v high -pix_fmt yuv420p \
     -movflags +faststart -an \
     "$OUT/$out.mp4"
+  # This ffmpeg build has no libwebp encoder, so grab a JPEG frame and hand it
+  # to sharp (already a devDependency) for the WebP conversion.
   ffmpeg -y -i "$OUT/$out.mp4" -vframes 1 -update 1 -q:v 3 "$OUT/$out-poster.jpg"
+  node -e "require('sharp')('$OUT/$out-poster.jpg').webp({quality:90}).toFile('$OUT/$out-poster.webp')"
+  rm "$OUT/$out-poster.jpg"
 }
 
 encode "WhatsApp Video 2026-08-18 at 6.29.22 PM.mp4" "cayman-1"

@@ -80,7 +80,7 @@ export function Building() {
       <div className="mb-16 grid gap-8 sm:grid-cols-2">
         <Reveal as={Link} href="/building" index={0} className="group block">
           <Media ratio="16/10" className="bg-black">
-            <AutoVideo src="/assets/video/forge-demo.mp4" poster="/assets/video/forge-demo-poster.jpg" />
+            <AutoVideo src="/assets/video/forge-demo.mp4" poster="/assets/video/forge-demo-poster.webp" />
           </Media>
           <h4 className="mt-4 font-serif text-[18px] font-normal text-ink">Forge — AI Workout Planner</h4>
           <p className="mt-2 text-[15px] leading-[1.55] text-ink-80">
@@ -91,7 +91,7 @@ export function Building() {
 
         <Reveal as={Link} href="/building" index={1} className="group block">
           <Media ratio="16/10" className="bg-white">
-            <AutoVideo src="/assets/video/nourishplan-demo.mp4" poster="/assets/video/nourishplan-demo-poster.jpg" />
+            <AutoVideo src="/assets/video/nourishplan-demo.mp4" poster="/assets/video/nourishplan-demo-poster.webp" />
           </Media>
           <h4 className="mt-4 font-serif text-[18px] font-normal text-ink">NourishPlan — AI Nutrition Planner</h4>
           <p className="mt-2 text-[15px] leading-[1.55] text-ink-80">

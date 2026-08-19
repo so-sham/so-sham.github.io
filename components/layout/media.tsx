@@ -24,23 +24,39 @@ export function Media({
   )
 }
 
+/**
+ * `priority` marks the one above-the-fold image (the home hero portrait), which
+ * loads eagerly. Everything else defers to `loading="lazy"`, which also stops
+ * React from emitting a `<link rel="preload" as="image">` for it — without
+ * that, all ~35 images on the home page were preloaded into the initial request
+ * wave and starved the webfonts the LCP text waits on.
+ *
+ * Deliberately no `fetchpriority="high"` on the hero: measured against a built
+ * export it pulled 85 KB into the high-priority set ahead of the fonts and cost
+ * ~350 ms of mobile LCP, and Chrome promotes an eager in-viewport image on its
+ * own once layout lands.
+ */
 export function FillImg({
   src,
   alt,
   fit = "cover",
   position,
+  priority = false,
   className,
 }: {
   src: string
   alt: string
   fit?: "cover" | "contain"
   position?: string
+  priority?: boolean
   className?: string
 }) {
   return (
     <img
       src={src}
       alt={alt}
+      loading={priority ? "eager" : "lazy"}
+      decoding={priority ? "sync" : "async"}
       className={cn(
         "absolute inset-0 h-full w-full",
         fit === "cover" ? "object-cover" : "object-contain",

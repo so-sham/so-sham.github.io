@@ -84,7 +84,7 @@ export default function GuidedJourneyPage() {
         <Media ratio="4/3" className="bg-paper-tint">
           <AutoVideo
             src="/assets/video/guided-journey-demo.mp4"
-            poster="/assets/video/guided-journey-demo-poster.jpg"
+            poster="/assets/video/guided-journey-demo-poster.webp"
             rate={1.75}
             fit="contain"
           />

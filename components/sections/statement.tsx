@@ -6,6 +6,9 @@ import { Container } from "@/components/layout/container"
 export function Statement() {
   return (
     <section id="sec-statement" className="pt-[132px] pb-26">
+      {/* The hero portrait is the LCP element; `priority` on FillImg makes it
+          eager (no fetchpriority — see FillImg's comment for why), which is
+          also what makes React hoist a preload link for it into <head>. */}
       <Container>
         <div className="grid items-end gap-14 md:grid-cols-[1.15fr_0.85fr] md:gap-18">
           <Reveal className="order-2 md:order-1">
@@ -25,7 +28,7 @@ export function Statement() {
           </Reveal>
           <Reveal index={1} className="order-1 md:order-2">
             <Media ratio="4/5" className="bg-paper-tint">
-              <FillImg src="/assets/img/hero-portrait.webp" alt="Shamitha Gowda" />
+              <FillImg src="/assets/img/hero-portrait.webp" alt="Shamitha Gowda" priority />
             </Media>
           </Reveal>
         </div>

@@ -76,7 +76,7 @@ export function OutsideWork() {
           {tab === "fitness" && (
             <div className="grid gap-10 md:grid-cols-2">
               <Media ratio="3/2" className="bg-[#111]">
-                <AutoVideo src="/assets/video/fitness-clip.mp4" poster="/assets/video/fitness-clip-poster.jpg" rate={1.5} />
+                <AutoVideo src="/assets/video/fitness-clip.mp4" poster="/assets/video/fitness-clip-poster.webp" rate={1.5} />
               </Media>
               <div>
                 <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">

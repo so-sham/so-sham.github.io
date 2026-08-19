@@ -21,6 +21,10 @@ export function XrFlip({
           key={src}
           src={src}
           alt={i === 0 ? alt : ""}
+          width={700}
+          height={646}
+          loading="lazy"
+          decoding="async"
           className="xr-page h-full w-full object-contain"
           style={{ animationDelay: `-${(i * step).toFixed(2)}s` }}
         />

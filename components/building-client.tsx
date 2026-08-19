@@ -183,7 +183,7 @@ export function BuildingClient() {
                 kind="Product"
                 title="Forge — AI Workout Planner"
                 meta="React · Vite · Supabase · Anthropic API · live at sosham.me/workout-planner"
-                media={<AutoVideo src="/assets/video/forge-demo.mp4" poster="/assets/video/forge-demo-poster.jpg" />}
+                media={<AutoVideo src="/assets/video/forge-demo.mp4" poster="/assets/video/forge-demo-poster.webp" />}
                 link={{ label: "sosham.me/workout-planner ↗", href: "https://sosham.me/workout-planner/" }}
               >
                 <p>
@@ -207,7 +207,7 @@ export function BuildingClient() {
                 kind="Product"
                 title="NourishPlan — AI Nutrition Planner"
                 meta="React · Vite · Supabase · Anthropic API · live at sosham.me/meal-planner"
-                media={<AutoVideo src="/assets/video/nourishplan-demo.mp4" poster="/assets/video/nourishplan-demo-poster.jpg" />}
+                media={<AutoVideo src="/assets/video/nourishplan-demo.mp4" poster="/assets/video/nourishplan-demo-poster.webp" />}
                 link={{ label: "sosham.me/meal-planner ↗", href: "https://sosham.me/meal-planner/" }}
               >
                 <p>

@@ -62,6 +62,26 @@ export function AutoVideo({
     v.addEventListener("loadeddata", onLoadedData)
     v.addEventListener("ended", onEnded)
 
+    // The element ships with preload="none" and no `poster` attribute, so none
+    // of the home page's six background clips pull bytes during the initial
+    // load — that was ~205 KB of video metadata plus ~125 KB of poster frames
+    // competing with the fonts and the hero image. This wider observer attaches
+    // the poster and flips the clip to preload="auto" a long way (800px) before
+    // it reaches the play threshold below, so both land well out of sight.
+    const prewarm = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        if (poster && !v.poster) v.poster = poster
+        if (v.preload !== "auto") {
+          v.preload = "auto"
+          v.load()
+        }
+        prewarm.disconnect()
+      },
+      { rootMargin: "800px 0px 800px 0px", threshold: 0 }
+    )
+    prewarm.observe(v)
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -78,6 +98,7 @@ export function AutoVideo({
     return () => {
       v.removeEventListener("loadeddata", onLoadedData)
       v.removeEventListener("ended", onEnded)
+      prewarm.disconnect()
       observer.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,10 +108,9 @@ export function AutoVideo({
     <video
       ref={videoRef}
       src={src}
-      poster={poster}
       muted
       playsInline
-      preload="metadata"
+      preload="none"
       className={cn(
         "absolute inset-0 h-full w-full",
         fit === "cover" ? "object-cover" : "object-contain",
