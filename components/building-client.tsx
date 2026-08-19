@@ -306,8 +306,9 @@ export function BuildingClient() {
                 ]}
               >
                 <p>
-                  <strong>The role.</strong> Taking membership from under 100K to nearly 200K — not
-                  just the number, but a connected community of product people.
+                  <strong>The role.</strong> Three years leading content, engagement and events for
+                  Asia&rsquo;s largest product community, taking membership from under 100K to nearly
+                  200K — not just the number, but a connected community of product people.
                 </p>
                 <p>
                   <strong>What it taught.</strong> Distribution is a product problem. The community
@@ -349,14 +350,17 @@ export function BuildingClient() {
                   the community and the events that hold it together.
                 </p>
                 <p>
-                  <strong>What I do.</strong> Product Happy Hour, run with Mixpanel, brought 100+
-                  product people together in Bangalore across B2B, B2C, growth, fintech and platform
-                  teams. Genesis ran as a series of conversations for women building in web3. The
-                  Women in AI edition was organised with Peak XV, Anthropic and Basecamp.
+                  <strong>What I do.</strong> Manage the community and organise the events: meetups,
+                  mixers and panels, from the invite list and the run of show to the branding that
+                  carries each one online afterwards. Product Happy Hour, run with Mixpanel, brought
+                  100+ product people together in Bangalore across B2B, B2C, growth, fintech and
+                  platform teams. Genesis ran as a series of conversations for women building in web3.
+                  The Women in AI edition was organised with Peak XV, Anthropic and Basecamp.
                 </p>
                 <p>
-                  <strong>Why I keep doing it.</strong> It keeps me connected to the women building
-                  products and to the leaders in the field.
+                  <strong>Why I keep doing it.</strong> The same reason as the AI chapter: it keeps me
+                  connected to the women building products and to the leaders in the field, and it
+                  keeps me part of the community rather than watching it from outside.
                 </p>
               </CommunityBlock>
 

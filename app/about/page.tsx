@@ -145,7 +145,7 @@ const CV_ENTRIES = [
     title: "Growth Manager — Kampd",
     sub: "",
     bullets: [
-      "Owned the community and social media strategy for a platform building interactive professional communities.",
+      "Owned the community and social media strategy for a platform built around interactive professional communities.",
       "Organiser for Singapore FinTech Festival and TiE Global Summit — event content, reels and website work — and community and social support for IIT Techfest, including its content strategy.",
       "Grew DAU engagement 67% with those partnerships and the IITs as early adopters: 5× user engagement, 20% brand recognition lift. Built multiple college communities.",
       "Optimised the Soapbox feature through user testing — 30% higher satisfaction, 25% lower churn — and doubled partnership growth with AWS, WWF and IBM.",

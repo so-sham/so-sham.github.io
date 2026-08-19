@@ -75,6 +75,7 @@ export default function OneHealthCaymanPage() {
         />
       }
       spineItems={SPINE}
+      footerNote="Artifacts on this page are redacted."
       prev={{ label: "← Passkey identity", href: "/work/passkey-identity" }}
       next={{ label: "Next: Pulse AI →", href: "/work/pulse-ai" }}
     >
@@ -100,12 +101,24 @@ export default function OneHealthCaymanPage() {
       </CsHeading>
       <CsTable
         caption="Perspective → what they are trying to find out"
-        columns={["Perspective", "Questions"]}
+        columns={["Perspective", "What they are trying to find out"]}
         rows={[
-          ["Patient", "What's covered? What do I owe? Where is my claim?"],
-          ["Provider", "Is this patient eligible? Will this be authorised? When do I get paid?"],
-          ["Employer", "Who's enrolled? What changed this month? What am I paying for?"],
-          ["Insurer", "Where is risk concentrated? What's the claims trend? What needs review?"],
+          [
+            "Patient",
+            "Who pays for my healthcare? What is covered? Is my insurance active? Where is my member card? What happens when I receive care?",
+          ],
+          [
+            "Provider",
+            "How do I verify eligibility? Do I need authorisation? How do I submit a claim? Was it processed? When do I get paid?",
+          ],
+          [
+            "Employer",
+            "How do I add an employee? Add a dependent? Terminate coverage? Confirm someone is eligible?",
+          ],
+          [
+            "Insurer",
+            "How do we configure plans, control access, manage documents, and keep these workflows consistent?",
+          ],
         ]}
       />
 
