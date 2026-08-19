@@ -80,7 +80,7 @@ function CommunityBlock({
   meta: string
   img: string
   alt: string
-  caption: string
+  caption?: string
   children: React.ReactNode
   table?: { label: string; body: string }[]
   tiles?: { src: string; alt: string; caption: string }[]
@@ -93,7 +93,7 @@ function CommunityBlock({
       <Media ratio="16/10" className="mt-5 max-w-[600px] bg-paper-tint">
         <FillImg src={img} alt={alt} />
       </Media>
-      <p className="mt-2 text-[13px] text-ink-55">{caption}</p>
+      {caption && <p className="mt-2 text-[13px] text-ink-55">{caption}</p>}
       <div className="mt-4 max-w-[600px] space-y-3 text-[15px] leading-[1.6] text-ink-80">{children}</div>
       {table && (
         <div className="mt-6 max-w-[600px] divide-y divide-rule-warm border-t border-rule-warm">
@@ -370,7 +370,6 @@ export function BuildingClient() {
                 title="AIESEC"
                 img="/assets/img/aiesec-collage-v2.webp"
                 alt="AIESEC leadership"
-                caption="AIESEC · leading operations across time zones"
               >
                 <p>
                   <strong>The role.</strong> Persona mapping, market analysis, product strategy and
@@ -400,7 +399,6 @@ export function BuildingClient() {
                 title="Lean On — mental health"
                 img="/assets/img/leanon-hero.webp"
                 alt="LeanOn peer support product"
-                caption="LeanOn — anonymous peer support"
                 link={{ label: "leanon.app ↗", href: "https://www.leanon.app/" }}
               >
                 <p>
@@ -430,7 +428,6 @@ export function BuildingClient() {
                 title="Event operations, automated"
                 img="/assets/img/eventops-collage.webp"
                 alt="Event operations automation"
-                caption="Registration, reminders and follow-up, wired together"
               >
                 <p>
                   <strong>Why.</strong> Community events fail on logistics, not content.
