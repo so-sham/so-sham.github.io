@@ -2,6 +2,18 @@ import { Eyebrow } from "@/components/layout/eyebrow"
 import { Section } from "@/components/layout/section"
 import { Reveal } from "@/components/reveal"
 
+const DIAGRAM_VIEWBOX = "0 0 150 200"
+const MONO_LABEL = { fontFamily: "var(--font-mono)", letterSpacing: "0.05em" } as const
+
+function DiagramFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <svg viewBox={DIAGRAM_VIEWBOX} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
+      <rect x="0.5" y="0.5" width="149" height="199" fill="var(--paper-tint)" stroke="var(--rule-warm)" />
+      {children}
+    </svg>
+  )
+}
+
 function PositioningDiagram() {
   const dots = [
     { label: "Apple", x: 78, y: 22, color: "var(--accent-blue)" },
@@ -9,81 +21,121 @@ function PositioningDiagram() {
     { label: "Samsung", x: 68, y: 60, color: "var(--accent-blue)" },
     { label: "Jawbone", x: 30, y: 75, color: "var(--rust)" },
   ]
+  const plotX = (x: number) => 24 + (x / 100) * 110
+  const plotY = (y: number) => 172 - (y / 100) * 150
+
   return (
-    <div className="relative h-full w-full border border-rule-warm bg-paper-tint p-4">
-      <div className="absolute bottom-8 left-8 h-px w-[calc(100%-4rem)] bg-ink-35" />
-      <div className="absolute bottom-8 left-8 h-[calc(100%-4rem)] w-px bg-ink-35" />
+    <DiagramFrame>
+      <line x1="24" y1="20" x2="24" y2="172" stroke="var(--ink-35)" strokeWidth="1" />
+      <line x1="24" y1="172" x2="140" y2="172" stroke="var(--ink-35)" strokeWidth="1" />
       {dots.map((d) => (
-        <div
+        <rect
           key={d.label}
-          className="absolute h-2 w-2 -translate-x-1/2 translate-y-1/2"
-          style={{ left: `${d.x}%`, bottom: `${100 - d.y}%`, background: d.color }}
+          x={plotX(d.x) - 2.5}
+          y={plotY(d.y) - 2.5}
+          width="5"
+          height="5"
+          fill={d.color}
         />
       ))}
-      <p className="absolute top-3 left-3 font-mono text-[9px] text-ink-55 uppercase">Depth ↑</p>
-      <p className="absolute right-3 bottom-3 font-mono text-[9px] text-ink-55 uppercase">Price →</p>
-    </div>
+      <text x="8" y="14" fontSize="7" fill="var(--ink-55)" style={MONO_LABEL}>
+        DEPTH ↑
+      </text>
+      <text x="98" y="188" fontSize="7" fill="var(--ink-55)" style={MONO_LABEL}>
+        PRICE →
+      </text>
+    </DiagramFrame>
   )
 }
 
 function SessionFlowDiagram() {
   return (
-    <div className="flex h-full w-full flex-col justify-between border border-rule-warm bg-paper-tint p-4">
-      <div className="space-y-2">
-        <div className="w-3/5 border border-accent-blue bg-white px-2 py-1 text-[10px] text-ink-80">Hey, rough day?</div>
-        <div className="ml-auto w-3/5 border border-ink-35 bg-white px-2 py-1 text-right text-[10px] text-ink-80">
-          Yeah, work has been a lot.
-        </div>
-        <div className="w-3/5 border border-rust bg-white px-2 py-1 text-[10px] text-rust">STALLS</div>
-      </div>
-      <p className="font-mono text-[9px] text-ink-55 uppercase">2 msg / min · rematch</p>
-    </div>
+    <DiagramFrame>
+      <rect x="12" y="14" width="92" height="16" fill="white" stroke="var(--accent-blue)" />
+      <text x="18" y="25" fontSize="7" fill="var(--ink-80)">
+        Hey, rough day?
+      </text>
+
+      <rect x="46" y="40" width="92" height="26" fill="white" stroke="var(--ink-35)" />
+      <text x="52" y="52" fontSize="7" fill="var(--ink-80)">
+        Yeah, work has
+      </text>
+      <text x="52" y="61" fontSize="7" fill="var(--ink-80)">
+        been a lot.
+      </text>
+
+      <rect x="12" y="76" width="54" height="16" fill="white" stroke="var(--rust)" />
+      <text x="18" y="87" fontSize="7" fill="var(--rust)">
+        STALLS
+      </text>
+
+      <text x="12" y="184" fontSize="7" fill="var(--ink-55)" style={MONO_LABEL}>
+        2 MSG / MIN · REMATCH
+      </text>
+    </DiagramFrame>
   )
 }
 
 function HappyFlowDiagram() {
-  const rows: Array<{ label: string; breakAt: number }> = [
-    { label: "Parent", breakAt: 3 },
-    { label: "Teacher", breakAt: 4 },
+  const rows: Array<{ label: string; breakAt: number; y: number }> = [
+    { label: "PARENT", breakAt: 3, y: 26 },
+    { label: "TEACHER", breakAt: 4, y: 78 },
   ]
+  const squareSize = 11
+  const gap = 4
+
   return (
-    <div className="flex h-full w-full flex-col justify-between border border-rule-warm bg-paper-tint p-4">
-      <div className="space-y-3">
-        {rows.map((row) => (
-          <div key={row.label}>
-            <p className="mb-1 font-mono text-[9px] text-ink-55 uppercase">{row.label}</p>
-            <div className="flex gap-1">
-              {Array.from({ length: 6 }, (_, i) => (
-                <span
-                  key={i}
-                  className="h-2.5 w-2.5"
-                  style={{ background: i === row.breakAt ? "var(--rust)" : "var(--rule-warm-2)" }}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="font-mono text-[9px] text-ink-55 uppercase">Where it breaks</p>
-    </div>
+    <DiagramFrame>
+      {rows.map((row) => (
+        <g key={row.label}>
+          <text x="14" y={row.y - 8} fontSize="7" fill="var(--ink-55)" style={MONO_LABEL}>
+            {row.label}
+          </text>
+          {Array.from({ length: 6 }, (_, i) => (
+            <rect
+              key={i}
+              x={14 + i * (squareSize + gap)}
+              y={row.y}
+              width={squareSize}
+              height={squareSize}
+              fill={i === row.breakAt ? "var(--rust)" : "var(--rule-warm-2)"}
+            />
+          ))}
+        </g>
+      ))}
+      <text x="14" y="184" fontSize="7" fill="var(--ink-55)" style={MONO_LABEL}>
+        WHERE IT BREAKS
+      </text>
+    </DiagramFrame>
   )
 }
 
 function BillingBarsDiagram() {
   const bars = [
-    { label: "Cash-heavy", pct: 20, color: "var(--rust)" },
-    { label: "Mixed", pct: 55, color: "#C9A96A" },
-    { label: "GST-led", pct: 90, color: "var(--accent-blue)" },
+    { label: "CASH-HEAVY", pct: 20, color: "var(--rust)" },
+    { label: "MIXED", pct: 55, color: "#C9A96A" },
+    { label: "GST-LED", pct: 90, color: "var(--accent-blue)" },
   ]
+  const baseline = 168
+  const maxHeight = 130
+  const barWidth = 26
+  const centers = [38, 75, 112]
+
   return (
-    <div className="flex h-full w-full items-end justify-center gap-4 border border-rule-warm bg-paper-tint p-4">
-      {bars.map((b) => (
-        <div key={b.label} className="flex flex-col items-center justify-end gap-2" style={{ height: "100%" }}>
-          <div className="w-8" style={{ height: `${b.pct}%`, background: b.color }} />
-          <p className="font-mono text-[8px] whitespace-nowrap text-ink-55 uppercase">{b.label}</p>
-        </div>
-      ))}
-    </div>
+    <DiagramFrame>
+      <line x1="16" y1={baseline} x2="134" y2={baseline} stroke="var(--rule-warm-2)" strokeWidth="1" />
+      {bars.map((b, i) => {
+        const h = (b.pct / 100) * maxHeight
+        return (
+          <g key={b.label}>
+            <rect x={centers[i] - barWidth / 2} y={baseline - h} width={barWidth} height={h} fill={b.color} />
+            <text x={centers[i]} y="184" fontSize="6" fill="var(--ink-55)" textAnchor="middle" style={MONO_LABEL}>
+              {b.label}
+            </text>
+          </g>
+        )
+      })}
+    </DiagramFrame>
   )
 }
 
