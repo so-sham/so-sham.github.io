@@ -83,9 +83,23 @@ export default function OneHealthCaymanPage() {
         The discovery started on the ground.
       </CsHeading>
       <CsPara>
-        The brief: build a four-user-group insurance platform — members, employers, providers,
-        admins — across Cayman and the US, integrating VBA Insurance and athenahealth. Two months on
-        the ground, 50+ interviews across American, Caymanian and European demographics.
+        The brief was not to digitise claims or build an insurance portal. It was to build an
+        insurance platform across four user groups — members, employers, providers and administrators
+        — in a market I needed to understand from the ground up. And eventually it would have to work
+        across both Cayman and the US, including integrations with VBA Insurance and athenahealth.
+      </CsPara>
+      <CsPara>
+        So before designing anything I spent two months on the ground in the Cayman Islands,
+        understanding how healthcare and insurance actually work there. I did not want to design an
+        insurance product from a PRD; I wanted to understand the system behind the PRD.
+      </CsPara>
+      <CsPara>
+        During the deployment I ran 50+ interviews across patients, healthcare providers, hospitals
+        and clinics, employers, insurance stakeholders and administrators, covering American,
+        Caymanian and European demographics — three groups whose expectations of healthcare,
+        insurance and digital products are not the same. It was not usability testing. I was not
+        showing people a design and asking whether they liked it. I was asking how healthcare
+        actually happens here.
       </CsPara>
       <CsStatRow
         stats={[
@@ -99,6 +113,10 @@ export default function OneHealthCaymanPage() {
       <CsHeading n="05" id="c-trigger">
         Four perspectives on the same insurance system.
       </CsHeading>
+      <CsPara>
+        I mapped the ecosystem from every side, and the questions people actually ask are narrower
+        than any feature list.
+      </CsPara>
       <CsTable
         caption="Perspective → what they are trying to find out"
         columns={["Perspective", "What they are trying to find out"]}
@@ -126,6 +144,18 @@ export default function OneHealthCaymanPage() {
         The reframe.
       </CsHeading>
       <CsBlockquote>One insurance ecosystem. Four purpose-built experiences.</CsBlockquote>
+      <CsPara>
+        Working in a market I had just learned made this discipline necessary rather than admirable.
+        It would have been easy to take an existing insurance portal pattern and adapt it. Instead I
+        treated Cayman as a new product environment and had to learn how providers verify coverage,
+        how employers manage insurance, how members understand their plans, how authorisation works,
+        how claims move, where manual processes still sat, and which information users treated as
+        critical.
+      </CsPara>
+      <CsPara>
+        That changed the scoping question. Not what features an insurance portal should have, but
+        what job each participant in the ecosystem is trying to complete.
+      </CsPara>
 
       <CsHeading n="07" id="c-decision">
         From discovery to four products.
@@ -160,9 +190,32 @@ export default function OneHealthCaymanPage() {
         The interesting part: it didn&rsquo;t stop at Cayman.
       </CsHeading>
       <CsPara>
-        The platform extended into the US healthcare ecosystem via athenahealth and VBA, drawing a
-        line between &ldquo;core insurance&rdquo; (member, plan, eligibility, authorisation, claim,
-        payment) and market-specific operations.
+        The platform was never ultimately constrained to one market. It had to support the US
+        healthcare ecosystem too, which has its own infrastructure, workflows and standards. One of
+        the major integrations was athenahealth, alongside the VBA insurance backend, designed to
+        automate eligibility, claims and policy operations across the platform.
+      </CsPara>
+      <CsPara>
+        So the product evolved from build an insurance portal for Cayman into build an insurance
+        platform that can operate across different healthcare ecosystems.
+      </CsPara>
+      <CsPara>
+        The underlying insurance concepts stay constant — member, plan, eligibility, authorisation,
+        claim, payment — but the way those concepts meet providers differs sharply between markets.
+        Rather than hard-coding the Cayman workflow into every experience, we had to keep asking which
+        logic is core insurance and which is market-specific operations: member → plan → eligibility
+        → claim on one side; provider workflow, healthcare-system integration, data exchange and
+        operational process on the other. That distinction is what made the platform extensible.
+      </CsPara>
+      <CsPara>
+        Working with VBA and athenahealth also changed how I think about integrations. An integration
+        is not an engineering task that happens after the UX is designed; it affects the product. For
+        every major workflow we had to answer where the information originates, which system owns it,
+        when it changes, what happens if two systems disagree, and what the user sees when it is not
+        available. A provider should not have to interpret backend insurance data — the product
+        should translate it into a decision: eligible, authorisation required, claim pending, claim
+        processed, payment available. The platform became an abstraction layer between complex
+        backend systems and the people using them.
       </CsPara>
       <CsFigure caption="Platform walkthrough. Screen recording, redacted.">
         <Media ratio="816/352" className="bg-[#0B0B0B]">
@@ -174,9 +227,18 @@ export default function OneHealthCaymanPage() {
         What it took to ship.
       </CsHeading>
       <CsPara>
-        Role-based access, auth/MFA/session management, eligibility, plan configuration, enrollment,
-        authorisation, claims, remittances, documents, approvals, search/filter, exports, empty and
-        error states.
+        Four interconnected portals, multiple user roles, and integrations with external systems.
+        Across the platform we had to account for role-based access, authentication, MFA and session
+        management, member eligibility, plan configuration, enrollment, authorisation, claims,
+        remittances, documents, approvals, search and filtering, exports, empty and error states, and
+        the backend integrations behind all of it.
+      </CsPara>
+      <CsPara>
+        <span className="em-underline">The complexity was never the screen count</span>. It was the
+        number of states and handoffs between systems and users. The provider portal alone had to
+        stay legible across claims that were pending, pended, in error, processed, denied and
+        partially denied. The employer portal needed approval states for every change to member
+        information.
       </CsPara>
       <CsFigure caption="Portal workflows in use. Screen recording, redacted.">
         <Media ratio="832/368" className="bg-[#0B0B0B]">
@@ -195,15 +257,48 @@ export default function OneHealthCaymanPage() {
           { value: "50+", label: "US providers" },
         ]}
       />
-      <CsPara>The platform serves 5,000+ users across all four portals.</CsPara>
+      <CsPara>
+        By the time we were thinking about the platform more broadly, CIHL and One Health Cayman
+        were supporting 10,000+ insured members, 100+ employer companies, 5,000+ users, 75 facilities
+        in Cayman and 50+ providers in the US. That scale is what made the initial discovery worth
+        two months: the product was not being designed for one persona, it was being designed for an
+        ecosystem that would keep growing.
+      </CsPara>
+      <CsPara>
+        The platform became connected digital infrastructure for the insurance lifecycle. The
+        provider portal handles eligibility verification, authorisation requests, claims and payment
+        tracking. The member portal gives members their plans, benefits and claims. The employer
+        portal moved enrollment operations into self-service. The admin portal created a centralised
+        control layer for users, documents and plan configuration. And through athenahealth, the
+        platform reached past Cayman into the US.
+      </CsPara>
+      <CsPara>
+        What began as a market-specific insurance digitisation project became a broader product
+        question: how do you build a common insurance platform while respecting the differences
+        between healthcare ecosystems?
+      </CsPara>
 
       <CsHeading n="11" id="c-differently">
         What I&rsquo;d do differently.
       </CsHeading>
       <CsPara>
-        Treat market abstraction as formal architecture from day one, with a reusable market-entry
-        framework: two weeks of ecosystem mapping, interviews, workflow shadowing, system mapping,
-        prioritisation, then an MVP split.
+        I would make market abstraction a formal part of the architecture from day one, separating
+        the core domain — member, plan, eligibility, authorisation, claim, payment — from the market
+        layer of provider workflows, healthcare integrations, data standards, operational rules and
+        regulatory requirements. That alone would make entering the next market much faster.
+      </CsPara>
+      <CsPara>
+        I would also formalise the discovery into a reusable market-entry framework: two weeks of
+        ecosystem mapping, then stakeholder interviews, workflow shadowing, system mapping,
+        pain-point prioritisation, a split between market-specific and reusable capability, then the
+        MVP. A team could then enter a new healthcare market without assuming the existing workflow
+        applies.
+      </CsPara>
+      <CsPara>
+        The two months on the ground were not a detour from product development. They were the
+        product development. When you are building 0→1 in a domain you do not know, the sequence is
+        context, then problem, then system, then solution — and your first job is not to build, it is
+        to understand the system you are entering.
       </CsPara>
     </CaseStudyShell>
   )
