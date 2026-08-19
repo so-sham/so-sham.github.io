@@ -26,49 +26,21 @@ const PREP_IMAGES = [1, 2, 3, 4, 5, 6].map((n) => ({
 }))
 const XTHRIVE_IMAGES = Array.from({ length: 11 }, (_, i) => `/assets/img/xthrive-${i + 1}.webp`)
 
-function ProjectBlock({
+/**
+ * Every write-up on /building — product, community or ops — shares one
+ * layout in the design brief: a two-column row (media 0.85fr, text 1.15fr)
+ * with the media side alternating left/right down the numbered 01–10
+ * sequence (odd = media left, even = media right), not per-category.
+ */
+function SideBySideCard({
   n,
   kind,
   title,
   meta,
-  children,
+  mediaSide,
   media,
-  link,
-}: {
-  n: string
-  kind: string
-  title: string
-  meta: string
-  children: React.ReactNode
-  media: React.ReactNode
-  link?: { label: string; href: string }
-}) {
-  return (
-    <div className="grid gap-10 border-t border-rule py-12 first:border-t-0 first:pt-0 md:grid-cols-[0.9fr_1.1fr]">
-      <Media ratio="16/10">{media}</Media>
-      <div>
-        <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">
-          {n} · {kind}
-        </p>
-        <h3 className="mt-3 font-serif text-[22px] leading-[1.2] font-normal text-ink">{title}</h3>
-        <p className="mt-2 font-mono text-[12px] text-ink-55">{meta}</p>
-        <div className="mt-4 space-y-3 text-[15px] leading-[1.6] text-ink-80">{children}</div>
-        {link && (
-          <a href={link.href} target="_blank" rel="noopener" className="link mt-4 inline-block text-[14px] font-medium">
-            {link.label}
-          </a>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function CommunityBlock({
-  n,
-  title,
-  meta,
-  img,
-  alt,
+  mediaRatio = "16/10",
+  mediaClassName,
   caption,
   children,
   table,
@@ -76,52 +48,70 @@ function CommunityBlock({
   link,
 }: {
   n: string
+  kind: string
   title: string
   meta: string
-  img: string
-  alt: string
+  mediaSide: "left" | "right"
+  media: React.ReactNode
+  mediaRatio?: string
+  mediaClassName?: string
   caption?: string
   children: React.ReactNode
   table?: { label: string; body: string }[]
   tiles?: { src: string; alt: string; caption: string }[]
   link?: { label: string; href: string }
 }) {
+  const mediaOrder = mediaSide === "right" ? "md:order-2" : "md:order-1"
+  const textOrder = mediaSide === "right" ? "md:order-1" : "md:order-2"
+
   return (
-    <div className="border-t border-rule py-12 first:border-t-0 first:pt-0">
-      <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">{n} · {meta}</p>
-      <h3 className="mt-3 font-serif text-[22px] leading-[1.2] font-normal text-ink">{title}</h3>
-      <Media ratio="16/10" className="mt-5 max-w-[600px] bg-paper-tint">
-        <FillImg src={img} alt={alt} />
-      </Media>
-      {caption && <p className="mt-2 text-[13px] text-ink-55">{caption}</p>}
-      <div className="mt-4 max-w-[600px] space-y-3 text-[15px] leading-[1.6] text-ink-80">{children}</div>
-      {table && (
-        <div className="mt-6 max-w-[600px] divide-y divide-rule-warm border-t border-rule-warm">
-          {table.map((row) => (
-            <div key={row.label} className="grid grid-cols-[120px_1fr] gap-4 py-3">
-              <p className="font-mono text-[11px] font-medium text-ink">{row.label}</p>
-              <p className="text-[14px] leading-[1.5] text-ink-80">{row.body}</p>
-            </div>
-          ))}
+    <div className="grid gap-10 border-t border-rule py-14 first:border-t-0 first:pt-0 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-14">
+      <div className={mediaOrder}>
+        <Media ratio={mediaRatio} className={cn("bg-paper-tint", mediaClassName)}>
+          {media}
+        </Media>
+        {caption && <p className="mt-2 text-[13px] leading-[1.5] text-ink-55">{caption}</p>}
+      </div>
+      <div className={textOrder}>
+        <div className="flex items-baseline gap-3.5">
+          <span className="font-mono text-[10px] font-medium tracking-[0.12em] text-rust uppercase">{n}</span>
+          <span className="font-mono text-[10px] font-medium tracking-[0.12em] text-ink-55 uppercase">{kind}</span>
         </div>
-      )}
-      {tiles && (
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {tiles.map((t) => (
-            <div key={t.src}>
-              <Media ratio="16/10" className="bg-paper-tint">
-                <FillImg src={t.src} alt={t.alt} />
-              </Media>
-              <p className="mt-2 text-[12px] text-ink-55">{t.caption}</p>
-            </div>
-          ))}
-        </div>
-      )}
-      {link && (
-        <a href={link.href} target="_blank" rel="noopener" className="link mt-4 inline-block text-[14px] font-medium">
-          {link.label}
-        </a>
-      )}
+        <h3 className="mt-4 font-serif text-[clamp(28px,2.6vw,36px)] leading-[1.12] font-light tracking-[-0.02em] text-ink">
+          {title}
+        </h3>
+        <p className="mt-3 font-mono text-[11px] leading-[1.6] text-ink-55">{meta}</p>
+        <div className="mt-5 max-w-[565px] space-y-3 text-[17px] leading-[1.68] text-ink-80">{children}</div>
+        {table && (
+          <div className="mt-8 max-w-[640px] divide-y divide-rule-warm border-t border-rule-warm">
+            {table.map((row) => (
+              <div key={row.label} className="grid grid-cols-[120px_1fr] gap-6 py-4">
+                <p className="pt-0.5 font-mono text-[10px] font-medium tracking-[0.1em] text-ink uppercase">
+                  {row.label}
+                </p>
+                <p className="text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {tiles && (
+          <div className="mt-9 grid grid-cols-2 gap-5 sm:grid-cols-4">
+            {tiles.map((t) => (
+              <div key={t.src}>
+                <Media ratio="16/10" className="bg-paper-tint">
+                  <FillImg src={t.src} alt={t.alt} />
+                </Media>
+                <p className="mt-2 text-[10px] leading-[1.5] text-ink-55">{t.caption}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {link && (
+          <a href={link.href} target="_blank" rel="noopener" className="link mt-6 inline-block text-[11px] font-medium tracking-[0.08em] uppercase">
+            {link.label}
+          </a>
+        )}
+      </div>
     </div>
   )
 }
@@ -178,11 +168,13 @@ export function BuildingClient() {
                 deployment.
               </p>
 
-              <ProjectBlock
+              <SideBySideCard
                 n="01"
                 kind="Product"
                 title="Forge — AI Workout Planner"
                 meta="React · Vite · Supabase · Anthropic API · live at sosham.me/workout-planner"
+                mediaSide="left"
+                mediaClassName="bg-black"
                 media={<AutoVideo src="/assets/video/forge-demo.mp4" poster="/assets/video/forge-demo-poster.webp" />}
                 link={{ label: "sosham.me/workout-planner ↗", href: "https://sosham.me/workout-planner/" }}
               >
@@ -200,13 +192,15 @@ export function BuildingClient() {
                   history lives in Supabase, only the deltas go into the prompt, and the returned plan
                   is validated against rules in code before it reaches the user.
                 </p>
-              </ProjectBlock>
+              </SideBySideCard>
 
-              <ProjectBlock
+              <SideBySideCard
                 n="02"
                 kind="Product"
                 title="NourishPlan — AI Nutrition Planner"
                 meta="React · Vite · Supabase · Anthropic API · live at sosham.me/meal-planner"
+                mediaSide="right"
+                mediaClassName="bg-white"
                 media={<AutoVideo src="/assets/video/nourishplan-demo.mp4" poster="/assets/video/nourishplan-demo-poster.webp" />}
                 link={{ label: "sosham.me/meal-planner ↗", href: "https://sosham.me/meal-planner/" }}
               >
@@ -223,13 +217,15 @@ export function BuildingClient() {
                   <strong>What I would rebuild.</strong> Generation sits on the write path, so a slow
                   model call blocks the user. It should have been queued from day one.
                 </p>
-              </ProjectBlock>
+              </SideBySideCard>
 
-              <ProjectBlock
+              <SideBySideCard
                 n="03"
                 kind="Product"
                 title="Xthrive AI Reports"
                 meta="70 paying members · Anthropic API + ReportLab · Aug 2025 — Feb 2026"
+                mediaSide="left"
+                mediaRatio="4/3"
                 media={<XrFlip images={XTHRIVE_IMAGES} alt="Xthrive AI report pages" />}
               >
                 <p>
@@ -249,13 +245,15 @@ export function BuildingClient() {
                   the thing they photographed and sent to family.
                 </p>
                 <p className="text-[13px] text-ink-55">All eleven pages of one member&rsquo;s report, on a loop.</p>
-              </ProjectBlock>
+              </SideBySideCard>
 
-              <ProjectBlock
+              <SideBySideCard
                 n="04"
                 kind="Product"
                 title="Prep AI — PM interview simulator"
                 meta="0→1 at The Product Folks · in collaboration with WorkHack · adopted across the community"
+                mediaSide="right"
+                mediaRatio="4/3"
                 media={<PkMarquee images={PREP_IMAGES} fast />}
               >
                 <p>
@@ -273,7 +271,7 @@ export function BuildingClient() {
                   did well. Useful feedback needed the criteria written down first, as a product
                   decision.
                 </p>
-              </ProjectBlock>
+              </SideBySideCard>
             </section>
           )}
 
@@ -283,12 +281,13 @@ export function BuildingClient() {
                 Rooms built for other product people, and the operations that keep them running.
               </p>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="05"
+                kind="Community"
                 meta="2022 — 2025 · Asia's largest product community · under 100K → nearly 200K members"
                 title="The Product Folks"
-                img="/assets/img/tpf-collage-wide.webp"
-                alt="The Product Folks community events"
+                mediaSide="left"
+                media={<FillImg src="/assets/img/tpf-collage-wide.webp" alt="The Product Folks community events" />}
                 caption="Product (Un)Conference 2024, Bengaluru · podcast recording · the room at the close."
                 table={[
                   { label: "Conference", body: "Hosted Asia's biggest product conference and ran its social launch. GTM for Insurjo brought 35K registrations and a 17% lift in attendance." },
@@ -314,14 +313,15 @@ export function BuildingClient() {
                   <strong>What it taught.</strong> Distribution is a product problem. The community
                   grew when the calendar became predictable, not when the content got cleverer.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="06"
+                kind="Community"
                 meta="Chapter lead · Bangalore"
                 title="Women in AI, Bangalore"
-                img="/assets/img/wai-collage-wide.webp"
-                alt="Women in AI Bangalore events"
+                mediaSide="right"
+                media={<FillImg src="/assets/img/wai-collage-wide.webp" alt="Women in AI Bangalore events" />}
                 caption="Women in AI · in conversation, with Peak XV, Women in Product and Anthropic"
               >
                 <p>
@@ -335,14 +335,15 @@ export function BuildingClient() {
                   the leaders in the field, and it keeps me inside the community rather than watching
                   it from outside.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="07"
+                kind="Community"
                 meta="Co-organiser · with Peak XV and The Product Folks"
                 title="Women in Product"
-                img="/assets/img/wip-collage-wide.webp"
-                alt="Women in Product events"
+                mediaSide="left"
+                media={<FillImg src="/assets/img/wip-collage-wide.webp" alt="Women in Product events" />}
                 caption="Product Happy Hour with Mixpanel · Genesis, Bengaluru"
               >
                 <p>
@@ -362,14 +363,16 @@ export function BuildingClient() {
                   connected to the women building products and to the leaders in the field, and it
                   keeps me part of the community rather than watching it from outside.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="08"
+                kind="Community"
                 meta="2021 — 2022 · Chief Product Operations Officer · 60-member international team"
                 title="AIESEC"
-                img="/assets/img/aiesec-collage-v2.webp"
-                alt="AIESEC leadership"
+                mediaSide="right"
+                mediaRatio="4/3"
+                media={<FillImg src="/assets/img/aiesec-collage-v2.webp" alt="AIESEC leadership" />}
               >
                 <p>
                   <strong>The role.</strong> Persona mapping, market analysis, product strategy and
@@ -383,7 +386,7 @@ export function BuildingClient() {
                   <strong>What it taught.</strong> Most product failures are coordination failures.
                   This is where the operations instinct came from.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
             </section>
           )}
 
@@ -393,12 +396,13 @@ export function BuildingClient() {
                 Work done for other people&rsquo;s products and other people&rsquo;s events.
               </p>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="09"
+                kind="Consulting"
                 meta="Product consultant · Jun 2024 — Sept 2024"
                 title="Lean On — mental health"
-                img="/assets/img/leanon-hero.webp"
-                alt="LeanOn peer support product"
+                mediaSide="left"
+                media={<FillImg src="/assets/img/leanon-hero.webp" alt="LeanOn peer support product" />}
                 link={{ label: "leanon.app ↗", href: "https://www.leanon.app/" }}
               >
                 <p>
@@ -420,14 +424,16 @@ export function BuildingClient() {
                   free. Price and anonymity are the product: the constraint is a joint family, a late
                   night, and the stigma of asking.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
 
-              <CommunityBlock
+              <SideBySideCard
                 n="10"
+                kind="Operations"
                 meta="No-code · Zapier, Mailmodo, Razorpay, Webflow"
                 title="Event operations, automated"
-                img="/assets/img/eventops-collage.webp"
-                alt="Event operations automation"
+                mediaSide="right"
+                mediaRatio="4/3"
+                media={<FillImg src="/assets/img/eventops-collage.webp" alt="Event operations automation" />}
               >
                 <p>
                   <strong>Why.</strong> Community events fail on logistics, not content.
@@ -438,7 +444,7 @@ export function BuildingClient() {
                   <strong>What shipped.</strong> The whole chain wired together, so an event of 100 or
                   35,000 registrations costs roughly the same in human hours.
                 </p>
-              </CommunityBlock>
+              </SideBySideCard>
             </section>
           )}
 
