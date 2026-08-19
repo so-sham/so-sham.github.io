@@ -38,8 +38,8 @@ const PRINCIPLES = [
 const BEYOND = [
   {
     label: "Personal training",
-    a: "Certified and coaching part-time at Xthrive in Bangalore. Programming for people who are not athletes and do not want to become one.",
-    b: "Five or six years in now. I got into it more seriously during grief after my father's death, and since coming out of that I have been trying to keep it up in a non-stress environment. Six months coaching and the NASM courses taught me most of what I know — and it is the closest thing I have to a research lab on adherence.",
+    a: "Coaching part-time at Xthrive in Bangalore, while pursuing CASM certification. Programming for people who are not athletes and do not want to become one.",
+    b: "Five or six years in now. I got into it more seriously during grief after my father's death, and since coming out of that I have been trying to keep it up in a non-stress environment. Six months coaching, and the CASM coursework I'm currently working through is teaching me most of what I know — and it is the closest thing I have to a research lab on adherence.",
   },
   {
     label: "Communities",

@@ -80,14 +80,14 @@ export function OutsideWork() {
               </Media>
               <div>
                 <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">
-                  NASM certified · 5–6 years
+                  Pursuing CASM · 5–6 years
                 </p>
                 <p className="mt-4 text-[16px] leading-[1.6] text-ink-80">
                   I have been into fitness for five or six years. I got into it more seriously{" "}
                   <span className="em-underline">during grief after my father&rsquo;s death</span>,
                   and since coming out of that I have been trying to keep it up in a non-stress
-                  environment. Six months working as a fitness coach and the NASM courses taught me
-                  most of what I know.
+                  environment. Six months working as a fitness coach, and I&rsquo;m currently
+                  working through the CASM coursework that&rsquo;s teaching me most of what I know.
                 </p>
                 <p className="mt-3 text-[16px] leading-[1.6] text-ink-80">
                   It is also where the AI reports came from — the coaching problem arrived first,
@@ -96,7 +96,7 @@ export function OutsideWork() {
                 <div className="mt-6 grid grid-cols-3 gap-4 border-t border-rule-warm pt-5">
                   <StatTile value="5–6 yrs" label="Training" />
                   <StatTile value="6 mo" label="As a coach" />
-                  <StatTile value="NASM" label="Certified" />
+                  <StatTile value="CASM" label="In progress" />
                 </div>
               </div>
             </div>
