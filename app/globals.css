@@ -49,6 +49,10 @@
   * {
     border-radius: 0 !important;
   }
+  /* Timeline dot markers are a deliberate exception to the sharp-corner system. */
+  .dot-marker {
+    border-radius: 9999px !important;
+  }
   html {
     scroll-behavior: smooth;
   }

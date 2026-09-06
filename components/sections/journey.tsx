@@ -26,7 +26,7 @@ type AlongsideRow = {
   org: string
   role: string
   body: string
-  highlights: string
+  highlights: string[]
 }
 
 const FULL_TIME_ROWS: FullTimeRow[] = [
@@ -71,23 +71,23 @@ const ALONGSIDE_ROWS: AlongsideRow[] = [
   {
     dates: "2025 — now",
     org: "Xthrive & independent",
-    role: "AI & Operations · Independent AI Product Builder",
+    role: "Independent AI product builder",
     body: "AI fitness reports for a real gym, and two AI products of my own shipped end to end. Proof that the product instinct works without a team behind it.",
-    highlights: "70 paying members · 3 products shipped solo · Anthropic API · React · Supabase",
+    highlights: ["70 paying members", "3 products shipped solo", "Anthropic API · React · Supabase"],
   },
   {
     dates: "2022 — 2025",
     org: "The Product Folks · Bangalore",
-    role: "Product & Growth",
+    role: "Product & growth",
     body: "Three years leading Asia's largest product community — content, engagement and events — nearly doubling membership. Hosted Asia's biggest product conference and its social launch, started the product podcast, ran the Women in Product community, and built the AI PM Interview Simulator 0→1.",
-    highlights: "100K → 200K members · Insurjo: 35K registrations · Ally Product #2 on Product Hunt",
+    highlights: ["100K → 200K members", "Insurjo: 35K registrations", "Ally Product #2 on Product Hunt"],
   },
   {
     dates: "2021 — 2022",
     org: "AIESEC · while at university",
-    role: "Chief Product Operations Officer",
+    role: "Chief product operations officer",
     body: "Persona mapping, market analysis, product strategy and day-to-day operations for a physical product, across time zones, at twenty-one. This is where I learned that most product failures are coordination failures.",
-    highlights: "60-member international team · 50% market share growth · +22% funnel conversion",
+    highlights: ["60-member international team", "50% market share growth", "+22% funnel conversion"],
   },
 ]
 
@@ -120,54 +120,45 @@ export function Journey() {
             as="div"
             className="relative border-t border-rule py-8 first:border-t-0 first:pt-0"
           >
-            <span
-              className="absolute top-2 -left-[29px] h-1.5 w-1.5"
-              style={{ background: row.current ? "var(--rust)" : "var(--accent-blue)" }}
-            />
-            <div className="grid gap-2 md:grid-cols-[180px_1fr] md:gap-8">
-              <div className="font-mono text-[13px] leading-[1.4] text-ink-55">
-                {row.dates}
-                <div className="mt-1 text-ink-35">{row.org}</div>
-              </div>
-              <div>
-                <h3 className={cnTitle(row.small)}>
-                  {row.title}
-                  {row.internship && (
-                    <span className="ml-2 align-middle font-mono text-[10px] font-medium tracking-[0.08em] text-ink-35 uppercase">
-                      Internship
-                    </span>
-                  )}
-                </h3>
-                <p className="mt-1 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.metrics}</p>
-                <p className="mt-3 max-w-[600px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
-                {row.subChapters && (
-                  <div className="mt-5 space-y-3 border-l border-rule-warm-2 pl-5">
-                    {row.subChapters.map((sc) => (
-                      <div key={sc.date + sc.title}>
-                        <p className="font-mono text-[12px] tracking-[0.02em] text-ink-55">
-                          {sc.date} <span className="text-ink-35">·</span>{" "}
-                          <span className="text-ink-80">{sc.title}</span>
-                        </p>
-                        {sc.body && (
-                          <p className="mt-1 max-w-[560px] text-[14px] leading-[1.55] text-ink-55">{sc.body}</p>
-                        )}
-                      </div>
-                    ))}
+            <span className="dot-marker absolute top-2 -left-[31px] h-2.5 w-2.5" style={{ background: "var(--rust)" }} />
+            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[13px] tracking-[0.02em]">
+              <span className="font-medium text-rust">{row.dates}</span>
+              <span className="tracking-[0.06em] text-ink-55 uppercase">{row.org}</span>
+            </p>
+            <h3 className={cnTitle(row.small)}>
+              {row.title}
+              {row.internship && (
+                <span className="ml-2 align-middle font-mono text-[10px] font-medium tracking-[0.08em] text-ink-35 uppercase">
+                  Internship
+                </span>
+              )}
+            </h3>
+            <p className="mt-2 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.metrics}</p>
+            <p className="mt-4 max-w-[640px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
+            {row.subChapters && (
+              <div className="mt-6 space-y-6 border-l border-rule-warm-2 pl-6">
+                {row.subChapters.map((sc) => (
+                  <div key={sc.date + sc.title}>
+                    <p className="flex flex-wrap items-baseline gap-x-2.5">
+                      <span className="font-mono text-[12px] font-medium text-rust">{sc.date}</span>
+                      <span className="font-serif text-[20px] leading-[1.3] font-normal text-ink">{sc.title}</span>
+                    </p>
+                    {sc.body && (
+                      <p className="mt-1.5 max-w-[560px] text-[14px] leading-[1.55] text-ink-55">{sc.body}</p>
+                    )}
                   </div>
-                )}
+                ))}
               </div>
-            </div>
+            )}
           </Reveal>
         ))}
       </div>
 
       <div className="mt-16">
-        <h3 className="mb-2 font-mono text-[11px] font-medium tracking-[0.14em] text-ink-35 uppercase">
+        <h3 className="mb-2 font-mono text-[11px] font-medium tracking-[0.14em] text-ink-80 uppercase">
           Alongside the full-time work
         </h3>
-        <p className="mb-8 text-[14px] leading-[1.5] text-ink-35 italic">
-          Evenings, weekends and university years
-        </p>
+        <p className="mb-8 text-[16px] leading-[1.5] text-ink-55">Evenings, weekends and university years.</p>
         <div>
           {ALONGSIDE_ROWS.map((row, i) => (
             <Reveal
@@ -177,14 +168,23 @@ export function Journey() {
               className="grid gap-2 border-t border-rule py-7 first:border-t-0 first:pt-0 md:grid-cols-[180px_1fr] md:gap-8"
             >
               <p className="inline-flex items-center gap-2 font-mono text-[13px] leading-[1.4] text-ink-55">
-                <span className="h-1 w-1 shrink-0 rounded-full bg-ink-35" />
+                <span className="dot-marker h-2 w-2 shrink-0" style={{ background: "var(--accent-blue)" }} />
                 {row.dates}
               </p>
               <div>
                 <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">{row.org}</p>
-                <h4 className="mt-2 font-serif text-[22px] leading-[1.2] font-normal text-ink">{row.role}</h4>
-                <p className="mt-3 max-w-[600px] text-[15px] leading-[1.6] text-ink-80">{row.body}</p>
-                <p className="mt-3 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.highlights}</p>
+                <h4 className="mt-2 font-serif text-[26px] leading-[1.2] font-normal text-ink">{row.role}</h4>
+                <p className="mt-3 max-w-[600px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {row.highlights.map((h) => (
+                    <span
+                      key={h}
+                      className="border border-rule-warm bg-surface px-3 py-[7px] font-mono text-[11px] tracking-[0.04em] text-ink-80 uppercase"
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
               </div>
             </Reveal>
           ))}
@@ -196,6 +196,6 @@ export function Journey() {
 
 function cnTitle(small?: boolean) {
   return small
-    ? "font-serif text-[24px] leading-[1.2] font-normal text-ink"
-    : "font-serif text-[29px] leading-[1.2] font-normal text-ink"
+    ? "mt-3 font-serif text-[24px] leading-[1.2] font-normal text-ink"
+    : "mt-3 font-serif text-[29px] leading-[1.2] font-normal text-ink"
 }
