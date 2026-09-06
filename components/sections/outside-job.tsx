@@ -1,11 +1,12 @@
 import { Eyebrow } from "@/components/layout/eyebrow"
 import { Section } from "@/components/layout/section"
 import { Reveal } from "@/components/reveal"
+import { asset } from "@/lib/asset"
 
 /* ---------------------------------------------------------------------------
    Case-study diagrams
    ---------------------------------------------------------------------------
-   Hand-drawn-style stand-ins for the real artefacts in each document. All four
+   Hand-drawn-style stand-ins for the real artefacts in each document. All five
    share one frame (title strip / plot area / footer strip on a `--surface`
    card), one type scale (mono, uppercase) and one stroke weight (1px hairline),
    because they repeat down a single column. viewBox is 210×280 so one SVG unit
@@ -488,6 +489,90 @@ function BillingBarsDiagram() {
   )
 }
 
+/* 05 — Voicestack · context does not survive a handoff ----------------------
+   Three bands read top to bottom as the shape of the problem and the fix:
+   what the discovery found (the metric grid, with the risk cell in rust),
+   what it's worth fixing in order (a worklist of bars, ranked, with the
+   bottom slot still open), and the one rule the PRD is built around — an
+   escalation that only ever runs one way. */
+function HandoffDiagram() {
+  const METRICS = [
+    { value: "47", label: "ANSWERED" },
+    { value: "41", label: "SOLO" },
+    { value: "11", label: "OPPORTUNITIES" },
+    { value: "AT RISK", label: "VALUE", rust: true },
+  ]
+  const COL_MID = (PAD + RIGHT) / 2
+  const ROW_TOP = 44
+  const ROW_MID = 76
+  const ROW_BOTTOM = 108
+
+  const WORKLIST = [
+    { y: 122, w: 150, dot: "var(--rust)", filled: true },
+    { y: 144, w: 118, dot: "var(--rust)", filled: true },
+    { y: 166, w: 90, dot: "var(--accent-blue)", filled: true },
+    { y: 188, w: 64, dot: "var(--ink-35)", filled: false },
+  ]
+
+  return (
+    <DiagramFrame
+      title="HANDOFF"
+      footer={
+        <text x={PAD} y={FOOT_TEXT} fontSize="8" fill="var(--ink-55)" style={MONO_WIDE}>
+          WORKLIST BY VALUE · ONE-WAY ESCALATION
+        </text>
+      }
+    >
+      {/* metric grid */}
+      <line x1={COL_MID} y1={ROW_TOP} x2={COL_MID} y2={ROW_BOTTOM} stroke="var(--rule-warm)" strokeWidth="1" />
+      <line x1={PAD} y1={ROW_MID} x2={RIGHT} y2={ROW_MID} stroke="var(--rule-warm)" strokeWidth="1" />
+      {METRICS.map((m, i) => {
+        const cx = i % 2 === 0 ? PAD : COL_MID + 12
+        const cy = i < 2 ? ROW_TOP : ROW_MID
+        const color = m.rust ? "var(--rust)" : "var(--ink)"
+        return (
+          <g key={m.label}>
+            <text x={cx} y={cy + 18} fontSize={m.rust ? "11" : "16"} fill={color} style={{ ...MONO, fontWeight: 500 }}>
+              {m.value}
+            </text>
+            <text x={cx} y={cy + 28} fontSize="7" fill={m.rust ? "var(--rust)" : "var(--ink-55)"} style={MONO_WIDE}>
+              {m.label}
+            </text>
+          </g>
+        )
+      })}
+
+      {/* worklist, ranked */}
+      {WORKLIST.map((r) => (
+        <g key={r.y}>
+          <circle cx={PAD + 3} cy={r.y} r="2.6" fill={r.dot} />
+          <rect
+            x={PAD + 12}
+            y={r.y - 5}
+            width={158}
+            height="10"
+            fill="none"
+            stroke="var(--rule-warm-2)"
+            strokeWidth="1"
+            strokeDasharray={r.filled ? undefined : "3 3"}
+          />
+          {r.filled && <rect x={PAD + 12} y={r.y - 5} width={r.w} height="10" fill="var(--paper-tint)" />}
+        </g>
+      ))}
+
+      {/* one-directional escalation */}
+      <text x={PAD} y="216" fontSize="9" fill="var(--ink)" style={{ ...MONO_WIDE, fontWeight: 500 }}>
+        BOT
+      </text>
+      <line x1="46" y1="213" x2="160" y2="213" stroke="var(--ink-35)" strokeWidth="1" />
+      <path d="M160 213 l-6 -3.5 M160 213 l-6 3.5" stroke="var(--ink-35)" strokeWidth="1" strokeLinecap="square" />
+      <text x={RIGHT} y="216" fontSize="9" fill="var(--ink)" textAnchor="end" style={{ ...MONO_WIDE, fontWeight: 500 }}>
+        HUMAN
+      </text>
+    </DiagramFrame>
+  )
+}
+
 const ROWS = [
   {
     diagram: <PositioningDiagram />,
@@ -528,6 +613,22 @@ const ROWS = [
     ),
     body: "Some SMEs bill 20% digitally, some 90%. I looked at why through five competitors — Vyapar, Marg, Tally, Zoho Books, KhataBook — and three shopkeeper personas across Maharashtra, Tamil Nadu and Madhya Pradesh. The blocker was rarely awareness: it was cash transactions nobody wants an invoice for, an interface built for accountants, and missing language support.",
     links: [{ label: "Read the document →", href: "https://drive.google.com/file/d/1F3S6B7YT1lHBOAzOvylVQyj3ZmyO15wz/view" }],
+  },
+  {
+    diagram: <HandoffDiagram />,
+    caption: "Worklist by value · one-way escalation",
+    kicker: "PRD & working build · Voicestack, 2026",
+    title: (
+      <>
+        An AI receptionist that <em className="em-accent">hands off</em> without the caller
+        starting over
+      </>
+    ),
+    body: "A PRD and a working console for Voicestack, an AI receptionist for dental practices. Grounded in Phase 2 of a patient relationship management discovery led inside a large hospital call centre — ethnographic observation beside agents on live calls, five agent types, ~40 revalidated gaps, and the integration landscape underneath. Six findings, all the same sentence: context does not survive a handoff. The PRD turns each into a design decision — closed fields instead of free text, capability tracked on two axes, soft holds with a visible expiry, one-directional escalation with a context card — and two hard gates: zero double-bookings, zero silent overwrites. Five screens, built and live.",
+    links: [
+      { label: "Read the PRD →", href: asset("/assets/voicestack-ai-receptionist-prd.pdf") },
+      { label: "See the console →", href: "https://super-front-desk.sosham.me/today" },
+    ],
   },
 ]
 

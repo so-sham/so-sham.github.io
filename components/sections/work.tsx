@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Eyebrow } from "@/components/layout/eyebrow"
 import { Section } from "@/components/layout/section"
-import { Media } from "@/components/layout/media"
+import { Media, FillImg } from "@/components/layout/media"
 import { Reveal } from "@/components/reveal"
 import { AutoVideo } from "@/components/media/auto-video"
 import { PkMarquee } from "@/components/media/pk-marquee"
@@ -12,13 +12,15 @@ const PK_IMAGES = [1, 2, 3, 4].map((n) => ({
   alt: `Passkey identity screenshot ${n}`,
 }))
 
+const BETA_UPDATED = "Aug 2026"
+
 export function Work() {
   return (
     <Section id="sec-work">
       <Reveal className="mb-14">
-        <Eyebrow n="03" label="Selected work" className="mb-6" />
+        <Eyebrow n="03" label="Case studies" className="mb-6" />
         <h2 className="max-w-[26ch] font-serif text-[clamp(28px,3vw,40px)] leading-[1.12] font-light tracking-[-0.02em] text-ink">
-          Problems, written to be <em className="em-accent">read</em>
+          Career highlights, written up <em className="em-accent">end to end</em>
         </h2>
         <p className="mt-4 max-w-[580px] text-[17px] leading-[1.62] text-ink-80">
           Each one names <span className="em-underline">the option that was rejected and the thing that broke</span>.
@@ -86,10 +88,7 @@ export function Work() {
           as={Link}
           href="/work/one-health-cayman"
           index={2}
-          className={cn(
-            "group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16",
-            "border-b border-rule-warm-2"
-          )}
+          className="group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16"
         >
           <Media ratio="16/9" className="bg-[#0B0B0B] transition-[border-color] duration-250 group-hover:border-ink-35">
             <AutoVideo
@@ -112,6 +111,39 @@ export function Work() {
               VBA and athenahealth underneath.
             </p>
           </div>
+        </Reveal>
+
+        {/* Row 4 — Pulse AI */}
+        <Reveal
+          as={Link}
+          href="/work/pulse-ai"
+          index={3}
+          className={cn(
+            "group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16",
+            "border-b border-rule-warm-2"
+          )}
+        >
+          <div className="order-2 md:order-1">
+            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
+              Pulse AI · in beta · updated {BETA_UPDATED}
+            </p>
+            <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">
+              An app that navigates the hospital <em className="em-accent">for you</em>
+            </h3>
+            <p className="mt-4 max-w-[565px] text-[16px] leading-[1.6] text-ink-80">
+              An agentic care-navigation layer over NH Care: read the intent, fetch the
+              patient&rsquo;s context, complete the action. Deterministic rules establish truth,
+              the model only summarises. I shipped the product surface — where the summary
+              appears, what it is allowed to say, what it must not — on top of a pipeline that was
+              not mine alone. No results yet, so the honest version is the reasoning.
+            </p>
+          </div>
+          <Media
+            ratio="1549/1000"
+            className="order-1 bg-paper-tint transition-[border-color] duration-250 group-hover:border-ink-35 md:order-2"
+          >
+            <FillImg src="/assets/img/pulse-collage-wide.webp" alt="Pulse AI — summary, findings and organ view" />
+          </Media>
         </Reveal>
       </div>
     </Section>

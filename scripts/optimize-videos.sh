@@ -10,8 +10,10 @@ mkdir -p "$OUT"
 
 encode() {
   local src="$1" out="$2"
+  local from="$src"
+  [[ "$src" != /* ]] && from="$SRC/$src"
   echo "=== $out ==="
-  ffmpeg -y -i "$SRC/$src" \
+  ffmpeg -y -i "$from" \
     -vf "scale='min(1280,iw)':-2" \
     -c:v libx264 -preset slow -crf 27 -profile:v high -pix_fmt yuv420p \
     -movflags +faststart -an \
@@ -30,6 +32,7 @@ encode "WhatsApp Video 2026-08-18 at 6.30.43 PM.mp4" "forge-demo"
 encode "WhatsApp Video 2026-08-18 at 6.31.02 PM.mp4" "nourishplan-demo"
 encode "WhatsApp Video 2026-08-19 at 12.33.15 AM.mp4" "fitness-clip"
 encode "whatsapp-video-2026-08-18-at-62732-pm_MiOPkRk6.mp4" "guided-journey-demo"
+encode "/Users/shamitha/Downloads/Recording 2026-09-06 224450.mp4" "receptionist-console-demo"
 
 echo
 echo "Done."
