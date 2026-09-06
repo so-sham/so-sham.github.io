@@ -121,6 +121,30 @@ export function Building() {
             evaluation rubric, feedback UX.
           </p>
         </Reveal>
+
+        <Reveal
+          as="a"
+          href="https://super-front-desk.sosham.me/today"
+          target="_blank"
+          rel="noopener"
+          index={4}
+          className="group block"
+        >
+          <Media ratio="1920/834" className="border border-rule-warm bg-[#0B0B0B]">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="font-mono text-[11px] tracking-[0.08em] text-white/40 uppercase">
+                Console recording · loading
+              </p>
+            </div>
+            <AutoVideo src="/assets/video/receptionist-console-demo.mp4" rate={1.5} />
+          </Media>
+          <h4 className="mt-4 font-serif text-[18px] font-normal text-ink">AI Receptionist Console</h4>
+          <p className="mt-2 text-[15px] leading-[1.55] text-ink-80">
+            Five screens for a dental practice to watch, control and check an AI phone agent.
+            Built from call-centre field research.{" "}
+            <span className="text-ink-55">super-front-desk.sosham.me</span>
+          </p>
+        </Reveal>
       </div>
 
       <h3 className="mb-6 font-serif text-[20px] font-normal text-ink">
