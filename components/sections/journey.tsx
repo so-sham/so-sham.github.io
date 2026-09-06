@@ -3,7 +3,13 @@ import { Eyebrow } from "@/components/layout/eyebrow"
 import { Reveal, RevealSpine } from "@/components/reveal"
 import { Section } from "@/components/layout/section"
 
-type Row = {
+type SubChapter = {
+  date: string
+  title: string
+  body?: string
+}
+
+type FullTimeRow = {
   dates: string
   org: string
   title: string
@@ -11,9 +17,19 @@ type Row = {
   body: string
   current?: boolean
   small?: boolean
+  internship?: boolean
+  subChapters?: SubChapter[]
 }
 
-const ROWS: Row[] = [
+type AlongsideRow = {
+  dates: string
+  org: string
+  role: string
+  body: string
+  highlights: string
+}
+
+const FULL_TIME_ROWS: FullTimeRow[] = [
   {
     dates: "Jul 2023 — now",
     org: "Narayana Health · Bangalore & Cayman Islands",
@@ -21,21 +37,12 @@ const ROWS: Row[] = [
     metrics: "4 verticals · 50+ cross-functional · installs 1.64M → 3.67M",
     body: "NH Care, HCCI Cayman and One Health Cayman. The guided service journey 0→1, passkey authentication, a four-portal insurance platform, and Mixpanel across the organisation. Two months on the ground in Cayman, twice.",
     current: true,
-  },
-  {
-    dates: "2025 — now",
-    org: "Xthrive & independent · evenings",
-    title: "AI & Operations · Independent AI Product Builder",
-    metrics: "Anthropic API · React · Supabase · 70 paying members",
-    body: "AI fitness reports for a real gym, and two AI products of my own shipped end to end. Proof that the product instinct works without a team behind it.",
-    current: true,
-  },
-  {
-    dates: "2022 — 2025",
-    org: "The Product Folks · Bangalore",
-    title: "Product & Growth",
-    metrics: "Asia's largest product community · under 100K → nearly 200K members · Insurjo 35K registrations",
-    body: "Three years leading Asia's largest product community — content, engagement and events — nearly doubling membership. Hosted Asia's biggest product conference and its social launch, started the product podcast, ran the Women in Product community, and built the AI PM Interview Simulator 0→1.",
+    subChapters: [
+      { date: "2023", title: "NH Care, India", body: "The guided service journey rebuilt 0→1." },
+      { date: "2024", title: "HCCI, Cayman Islands", body: "Passkeys and a rebuilt OTP, login 60% → 93–95%." },
+      { date: "2024 — 25", title: "Subscriptions and payments", body: "Revenue ₹31.8L → ₹3.75Cr." },
+      { date: "2025 — now", title: "One Health Cayman, Arya, Pulse AI" },
+    ],
   },
   {
     dates: "2022 — 2023",
@@ -43,6 +50,11 @@ const ROWS: Row[] = [
     title: "Growth Manager",
     metrics: "+67% DAU engagement · 5× user engagement · −25% churn on Soapbox",
     body: "A platform for building interactive professional communities. I wrote the community and social strategy for it, then ran it in the field: organiser for Singapore FinTech Festival, TiE Global Summit and IIT Techfest — content, reels, website. Also the first time I owned a feature end to end and settled it with user tests.",
+    subChapters: [
+      { date: "2022", title: "Strategy", body: "Wrote the community and social strategy for the platform." },
+      { date: "2022 — 23", title: "Field operations", body: "Singapore FinTech Festival, TiE Global Summit, IIT Techfest." },
+      { date: "2023", title: "First feature owned end to end", body: "Settled with user tests." },
+    ],
   },
   {
     dates: "Apr — Jul 2022",
@@ -51,13 +63,31 @@ const ROWS: Row[] = [
     metrics: "Zoho CRM implementation · −30% errors · +20% customer satisfaction",
     body: "My first look at what a support team actually does with a product. Streamlined the customer database and cut data entry time 40% — unglamorous, and the reason I now instrument before I build.",
     small: true,
+    internship: true,
+  },
+]
+
+const ALONGSIDE_ROWS: AlongsideRow[] = [
+  {
+    dates: "2025 — now",
+    org: "Xthrive & independent",
+    role: "AI & Operations · Independent AI Product Builder",
+    body: "AI fitness reports for a real gym, and two AI products of my own shipped end to end. Proof that the product instinct works without a team behind it.",
+    highlights: "70 paying members · 3 products shipped solo · Anthropic API · React · Supabase",
+  },
+  {
+    dates: "2022 — 2025",
+    org: "The Product Folks · Bangalore",
+    role: "Product & Growth",
+    body: "Three years leading Asia's largest product community — content, engagement and events — nearly doubling membership. Hosted Asia's biggest product conference and its social launch, started the product podcast, ran the Women in Product community, and built the AI PM Interview Simulator 0→1.",
+    highlights: "100K → 200K members · Insurjo: 35K registrations · Ally Product #2 on Product Hunt",
   },
   {
     dates: "2021 — 2022",
     org: "AIESEC · while at university",
-    title: "Chief Product Operations Officer",
-    metrics: "60-member international team · 50% market share growth · +22% funnel conversion",
+    role: "Chief Product Operations Officer",
     body: "Persona mapping, market analysis, product strategy and day-to-day operations for a physical product, across time zones, at twenty-one. This is where I learned that most product failures are coordination failures.",
+    highlights: "60-member international team · 50% market share growth · +22% funnel conversion",
   },
 ]
 
@@ -76,11 +106,14 @@ export function Journey() {
         </Link>
       </Reveal>
 
+      <h3 className="mb-6 font-mono text-[11px] font-medium tracking-[0.14em] text-ink-35 uppercase">
+        Full-time roles
+      </h3>
       <div className="relative pl-8">
         <div className="absolute top-2 bottom-2 left-[3px] w-px bg-rule-warm-2">
           <RevealSpine className="h-full w-full bg-rule-warm-2" />
         </div>
-        {ROWS.map((row, i) => (
+        {FULL_TIME_ROWS.map((row, i) => (
           <Reveal
             key={row.dates + row.org}
             index={i}
@@ -97,13 +130,65 @@ export function Journey() {
                 <div className="mt-1 text-ink-35">{row.org}</div>
               </div>
               <div>
-                <h3 className={cnTitle(row.small)}>{row.title}</h3>
+                <h3 className={cnTitle(row.small)}>
+                  {row.title}
+                  {row.internship && (
+                    <span className="ml-2 align-middle font-mono text-[10px] font-medium tracking-[0.08em] text-ink-35 uppercase">
+                      Internship
+                    </span>
+                  )}
+                </h3>
                 <p className="mt-1 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.metrics}</p>
                 <p className="mt-3 max-w-[600px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
+                {row.subChapters && (
+                  <div className="mt-5 space-y-3 border-l border-rule-warm-2 pl-5">
+                    {row.subChapters.map((sc) => (
+                      <div key={sc.date + sc.title}>
+                        <p className="font-mono text-[12px] tracking-[0.02em] text-ink-55">
+                          {sc.date} <span className="text-ink-35">·</span>{" "}
+                          <span className="text-ink-80">{sc.title}</span>
+                        </p>
+                        {sc.body && (
+                          <p className="mt-1 max-w-[560px] text-[14px] leading-[1.55] text-ink-55">{sc.body}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </Reveal>
         ))}
+      </div>
+
+      <div className="mt-16">
+        <h3 className="mb-2 font-mono text-[11px] font-medium tracking-[0.14em] text-ink-35 uppercase">
+          Alongside the full-time work
+        </h3>
+        <p className="mb-8 text-[14px] leading-[1.5] text-ink-35 italic">
+          Evenings, weekends and university years
+        </p>
+        <div>
+          {ALONGSIDE_ROWS.map((row, i) => (
+            <Reveal
+              key={row.dates + row.org}
+              index={i}
+              as="div"
+              className="grid gap-2 border-t border-rule py-7 first:border-t-0 first:pt-0 md:grid-cols-[180px_1fr] md:gap-8"
+            >
+              <p className="inline-flex items-center gap-2 font-mono text-[13px] leading-[1.4] text-ink-55">
+                <span className="h-1 w-1 shrink-0 rounded-full bg-ink-35" />
+                {row.dates}
+              </p>
+              <div>
+                <p className="font-mono text-[11px] tracking-[0.08em] text-ink-55 uppercase">{row.org}</p>
+                <h4 className="mt-2 font-serif text-[22px] leading-[1.2] font-normal text-ink">{row.role}</h4>
+                <p className="mt-3 max-w-[600px] text-[15px] leading-[1.6] text-ink-80">{row.body}</p>
+                <p className="mt-3 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.highlights}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </Section>
   )
