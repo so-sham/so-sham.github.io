@@ -6,7 +6,7 @@ import { asset } from "@/lib/asset"
 /* ---------------------------------------------------------------------------
    Case-study diagrams
    ---------------------------------------------------------------------------
-   Hand-drawn-style stand-ins for the real artefacts in each document. All four
+   Hand-drawn-style stand-ins for the real artefacts in each document. All five
    share one frame (title strip / plot area / footer strip on a `--surface`
    card), one type scale (mono, uppercase) and one stroke weight (1px hairline),
    because they repeat down a single column. viewBox is 210×280 so one SVG unit

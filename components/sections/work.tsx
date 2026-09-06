@@ -124,7 +124,7 @@ export function Work() {
           )}
         >
           <div className="order-2 md:order-1">
-            <p className="font-mono text-[12px] tracking-[0.08em] text-rust uppercase">
+            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
               Pulse AI · in beta · updated {BETA_UPDATED}
             </p>
             <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">

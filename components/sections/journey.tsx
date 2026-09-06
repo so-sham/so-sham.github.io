@@ -15,7 +15,6 @@ type FullTimeRow = {
   title: string
   metrics: string
   body: string
-  current?: boolean
   small?: boolean
   internship?: boolean
   subChapters?: SubChapter[]
@@ -36,7 +35,6 @@ const FULL_TIME_ROWS: FullTimeRow[] = [
     title: "Product Manager",
     metrics: "4 verticals · 50+ cross-functional · installs 1.64M → 3.67M",
     body: "NH Care, HCCI Cayman and One Health Cayman. The guided service journey 0→1, passkey authentication, a four-portal insurance platform, and Mixpanel across the organisation. Two months on the ground in Cayman, twice.",
-    current: true,
     subChapters: [
       { date: "2023", title: "NH Care, India", body: "The guided service journey rebuilt 0→1." },
       { date: "2024", title: "HCCI, Cayman Islands", body: "Passkeys and a rebuilt OTP, login 60% → 93–95%." },
@@ -120,19 +118,19 @@ export function Journey() {
             as="div"
             className="relative border-t border-rule py-8 first:border-t-0 first:pt-0"
           >
-            <span className="dot-marker absolute top-2 -left-[31px] h-2.5 w-2.5" style={{ background: "var(--rust)" }} />
+            <span className="dot-marker absolute top-2 -left-[33.5px] h-2.5 w-2.5" style={{ background: "var(--rust)" }} />
             <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[13px] tracking-[0.02em]">
               <span className="font-medium text-rust">{row.dates}</span>
               <span className="tracking-[0.06em] text-ink-55 uppercase">{row.org}</span>
             </p>
-            <h3 className={cnTitle(row.small)}>
+            <h4 className={cnTitle(row.small)}>
               {row.title}
               {row.internship && (
                 <span className="ml-2 align-middle font-mono text-[10px] font-medium tracking-[0.08em] text-ink-35 uppercase">
                   Internship
                 </span>
               )}
-            </h3>
+            </h4>
             <p className="mt-2 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.metrics}</p>
             <p className="mt-4 max-w-[640px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
             {row.subChapters && (

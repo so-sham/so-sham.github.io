@@ -128,15 +128,19 @@ export function Building() {
           target="_blank"
           rel="noopener"
           index={4}
-          className="group block"
+          className="group block sm:col-span-2"
         >
           <Media ratio="1920/834" className="border border-rule-warm bg-[#0B0B0B]">
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div aria-hidden className="absolute inset-0 flex items-center justify-center">
               <p className="font-mono text-[11px] tracking-[0.08em] text-white/40 uppercase">
                 Console recording · loading
               </p>
             </div>
-            <AutoVideo src="/assets/video/receptionist-console-demo.mp4" rate={1.5} />
+            <AutoVideo
+              src="/assets/video/receptionist-console-demo.mp4"
+              poster="/assets/video/receptionist-console-demo-poster.webp"
+              rate={1.5}
+            />
           </Media>
           <h4 className="mt-4 font-serif text-[18px] font-normal text-ink">AI Receptionist Console</h4>
           <p className="mt-2 text-[15px] leading-[1.55] text-ink-80">
