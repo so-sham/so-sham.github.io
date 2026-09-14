@@ -44,8 +44,8 @@ export default function PasskeyIdentityPage() {
       }
       spineItems={SPINE}
       footerNote="Artifacts on this page are redacted."
-      prev={{ label: "← All work", href: "/#sec-work" }}
-      next={{ label: "Next: One Health Cayman →", href: "/work/one-health-cayman" }}
+      prev={{ label: "← Guided service journey", href: "/work/guided-journey" }}
+      next={{ label: "All work →", href: "/#sec-work" }}
     >
       <CsHeading n="04" id="pk-setup">
         A phone number is a contact method. It should not be an identity.

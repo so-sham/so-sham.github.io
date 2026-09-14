@@ -30,24 +30,25 @@ export default function PulseAiPage() {
           backLabel="← Work"
           title={
             <>
-              An app that navigates the hospital <em className="em-accent">for you</em>
+              An <em className="em-accent font-semibold">agentic</em> AI for a whole hospital, and
+              the eval layer that keeps it honest
             </>
           }
-          dek="An agentic care-navigation layer inside NH Care: understand what the patient is asking, retrieve their context, and turn it into an action. In beta, with targets and no results yet."
-          status={`In beta · updated ${BETA_UPDATED}`}
+          dek="One conversational surface across four intelligence areas — book by symptom, read documents, query records, answer anything about the hospital — with rules to establish what's true and put an eval layer between the model and anything a patient might mistake for a diagnosis. In beta with up to 1,000 users."
+          status={`In beta · up to 1,000 users · updated ${BETA_UPDATED}`}
           metadata={[
             { label: "Product", value: "NH Care · Pulse AI" },
             { label: "Market", value: "India" },
             { label: "Stack", value: "Rules → Azure OpenAI → validation → Redis" },
-            { label: "Scope", value: "MVP · 4 intelligence areas" },
+            { label: "Scope", value: "MVP · 4 intelligence areas · 15,797 services mapped" },
             { label: "Read", value: "5 min" },
           ]}
         />
       }
       spineItems={SPINE}
       footerNote="Live status. If this flag is stale, tell me."
-      prev={{ label: "← One Health Cayman", href: "/work/one-health-cayman" }}
-      next={{ label: "All work →", href: "/#sec-work" }}
+      prev={{ label: "← All work", href: "/#sec-work" }}
+      next={{ label: "Next: One Health Cayman →", href: "/work/one-health-cayman" }}
     >
       <CsHeading n="01" id="p-bet">
         Healthcare apps store information. Patients need help making sense of it.

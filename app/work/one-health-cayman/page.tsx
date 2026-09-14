@@ -76,8 +76,8 @@ export default function OneHealthCaymanPage() {
       }
       spineItems={SPINE}
       footerNote="Artifacts on this page are redacted."
-      prev={{ label: "← Passkey identity", href: "/work/passkey-identity" }}
-      next={{ label: "Next: Pulse AI →", href: "/work/pulse-ai" }}
+      prev={{ label: "← Pulse AI", href: "/work/pulse-ai" }}
+      next={{ label: "Next: Guided service journey →", href: "/work/guided-journey" }}
     >
       <CsHeading n="04" id="c-setup">
         The discovery started on the ground.

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import Link from "next/link"
 import { Eyebrow } from "@/components/layout/eyebrow"
 import { Reveal, RevealSpine } from "@/components/reveal"
@@ -5,14 +6,15 @@ import { Section } from "@/components/layout/section"
 
 type SubChapter = {
   date: string
-  title: string
-  body?: string
+  title: ReactNode
+  body?: ReactNode
 }
 
 type FullTimeRow = {
   dates: string
   org: string
   title: string
+  specialism?: string[]
   metrics: string
   body: string
   small?: boolean
@@ -33,13 +35,35 @@ const FULL_TIME_ROWS: FullTimeRow[] = [
     dates: "Jul 2023 — now",
     org: "Narayana Health · Bangalore & Cayman Islands",
     title: "Product Manager",
+    specialism: ["AI", "Consumer", "Payments & subscriptions", "Insurance platforms"],
     metrics: "4 verticals · 50+ cross-functional · installs 1.64M → 3.67M",
     body: "NH Care, HCCI Cayman and One Health Cayman. The guided service journey 0→1, passkey authentication, a four-portal insurance platform, and Mixpanel across the organisation. Two months on the ground in Cayman, twice.",
     subChapters: [
+      {
+        date: "2025 — now · current",
+        title: (
+          <>
+            Pulse AI — <em className="em-accent">agentic AI</em> for patients
+          </>
+        ),
+        body: (
+          <>
+            In beta with up to 1,000 users: four intelligence areas behind one conversational
+            surface, an eval layer between the model and anything a patient might mistake for a
+            diagnosis, and 15,797 hospital services mapped onto the body.{" "}
+            <Link href="/work/pulse-ai" className="link font-medium">
+              Case study →
+            </Link>
+          </>
+        ),
+      },
       { date: "2023", title: "NH Care, India", body: "The guided service journey rebuilt 0→1." },
       { date: "2024", title: "HCCI, Cayman Islands", body: "Passkeys and a rebuilt OTP, login 60% → 93–95%." },
-      { date: "2024 — 25", title: "Subscriptions and payments", body: "Revenue ₹31.8L → ₹3.75Cr." },
-      { date: "2025 — now", title: "One Health Cayman, Arya, Pulse AI" },
+      {
+        date: "2024 — 25",
+        title: "Subscriptions, payments & One Health Cayman",
+        body: "Revenue ₹31.8L → ₹3.75Cr.",
+      },
     ],
   },
   {
@@ -131,6 +155,16 @@ export function Journey() {
                 </span>
               )}
             </h4>
+            {row.specialism && (
+              <p className="mt-2 font-mono text-[12px] font-medium tracking-[0.06em] text-ink-55 uppercase">
+                {row.specialism.map((s, idx) => (
+                  <span key={s}>
+                    {idx > 0 && " · "}
+                    <span className={idx === 0 ? "text-accent-blue" : undefined}>{s}</span>
+                  </span>
+                ))}
+              </p>
+            )}
             <p className="mt-2 font-mono text-[12px] tracking-[0.02em] text-ink-55">{row.metrics}</p>
             <p className="mt-4 max-w-[640px] text-[16px] leading-[1.6] text-ink-80">{row.body}</p>
             {row.subChapters && (
