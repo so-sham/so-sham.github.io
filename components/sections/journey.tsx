@@ -61,7 +61,7 @@ const FULL_TIME_ROWS: FullTimeRow[] = [
       { date: "2024", title: "HCCI, Cayman Islands", body: "Passkeys and a rebuilt OTP, login 60% → 93–95%." },
       {
         date: "2024 — 25",
-        title: "Subscriptions, payments & One Health Cayman",
+        title: "Subscriptions, payments, One Health Cayman & Arya",
         body: "Revenue ₹31.8L → ₹3.75Cr.",
       },
     ],
