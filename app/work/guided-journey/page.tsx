@@ -44,7 +44,7 @@ export default function GuidedJourneyPage() {
       }
       spineItems={SPINE}
       footerNote="Artifacts on this page are redacted."
-      prev={{ label: "← All work", href: "/#sec-work" }}
+      prev={{ label: "← One Health Cayman", href: "/work/one-health-cayman" }}
       next={{ label: "Next: Passkey identity →", href: "/work/passkey-identity" }}
     >
       <CsHeading n="04" id="g-setup">

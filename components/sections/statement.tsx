@@ -22,8 +22,9 @@ export function Statement() {
               <span className="em-underline">
                 consumer healthcare, where nobody arrives by choice
               </span>
-              . I ship independently too: AI products built solo on the Anthropic API, discovery
-              through deployment.
+              , and now on <em className="em-accent">agentic AI</em> for patients. I ship
+              independently too: <em className="em-accent">AI</em> products built solo on the
+              Anthropic API, discovery through deployment.
             </p>
           </Reveal>
           <Reveal index={1} className="order-1 md:order-2">

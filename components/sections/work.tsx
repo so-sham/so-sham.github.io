@@ -12,8 +12,6 @@ const PK_IMAGES = [1, 2, 3, 4].map((n) => ({
   alt: `Passkey identity screenshot ${n}`,
 }))
 
-const BETA_UPDATED = "Aug 2026"
-
 export function Work() {
   return (
     <Section id="sec-work">
@@ -28,12 +26,92 @@ export function Work() {
       </Reveal>
 
       <div>
-        {/* Row 1 — Guided Journey */}
+        {/* Row 1 — Pulse AI */}
+        <Reveal
+          as={Link}
+          href="/work/pulse-ai"
+          index={0}
+          className="group grid items-center gap-10 border-t border-rule-warm-2 py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16"
+        >
+          <Media
+            ratio="1549/1000"
+            className="bg-paper-tint transition-[border-color] duration-250 group-hover:border-ink-35"
+          >
+            <FillImg src="/assets/img/pulse-collage-wide.webp" alt="Pulse AI — summary, findings and organ view" />
+          </Media>
+          <div>
+            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
+              Pulse AI · NH Care, India · in beta, up to 1,000 users
+            </p>
+            <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">
+              An <em className="em-accent font-semibold">agentic</em> AI for a whole hospital, and
+              the eval layer that keeps it honest
+            </h3>
+            <p className="mt-4 max-w-[565px] text-[16px] leading-[1.6] text-ink-80">
+              One conversational surface across four intelligence areas — book by symptom, read
+              your documents, query your records, answer anything about the hospital. Every easy
+              version of this ships an LLM that answers confidently and is occasionally wrong
+              about someone&rsquo;s liver. So nothing reaches a patient unevaluated: rules
+              establish what is true, the model only writes it in plain language, and an eval
+              layer checks every response for flag agreement, banned phrases and clinical claims
+              it is not allowed to make. Fail the eval and the patient sees no summary at all — it
+              can explain, never diagnose. I went deepest on lab reports, where being wrong is
+              least forgivable.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Rules → LLM → validation", "15,797 services mapped to 14 organs", "Unmapped 7.4% → 0.04%"].map(
+                (chip) => (
+                  <span
+                    key={chip}
+                    className="border border-rule-warm bg-surface px-3 py-[7px] font-mono text-[11px] tracking-[0.04em] text-ink-80 uppercase"
+                  >
+                    {chip}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Row 2 — One Health Cayman */}
+        <Reveal
+          as={Link}
+          href="/work/one-health-cayman"
+          index={1}
+          className="group grid items-center gap-10 border-t border-rule-warm-2 py-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16"
+        >
+          <div className="order-2 md:order-1">
+            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
+              One Health Cayman · 4-portal platform · US &amp; Cayman
+            </p>
+            <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">
+              Building an insurance ecosystem across Cayman and the <em className="em-accent">US</em>
+            </h3>
+            <p className="mt-4 max-w-[565px] text-[16px] leading-[1.6] text-ink-80">
+              Members, employers, providers and admins, 10,000+ people whose care crosses two
+              countries, and no shared source of truth. Two months on the ground, 50+ interviews,
+              VBA and athenahealth underneath.
+            </p>
+          </div>
+          <Media
+            ratio="16/9"
+            className="order-1 bg-[#0B0B0B] transition-[border-color] duration-250 group-hover:border-ink-35 md:order-2"
+          >
+            <AutoVideo
+              src="/assets/video/cayman-1.mp4"
+              poster="/assets/video/cayman-1-poster.webp"
+              rate={1.75}
+              playlist={["/assets/video/cayman-1.mp4", "/assets/video/cayman-2.mp4", "/assets/video/cayman-3.mp4"]}
+            />
+          </Media>
+        </Reveal>
+
+        {/* Row 3 — Guided Journey */}
         <Reveal
           as={Link}
           href="/work/guided-journey"
-          index={0}
-          className="group grid items-center gap-10 border-t border-rule-warm-2 py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16"
+          index={2}
+          className="group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16"
         >
           <Media ratio="4/3" className="bg-paper-tint transition-[border-color] duration-250 group-hover:border-ink-35">
             <AutoVideo
@@ -58,12 +136,15 @@ export function Work() {
           </div>
         </Reveal>
 
-        {/* Row 2 — Passkey identity */}
+        {/* Row 4 — Passkey identity */}
         <Reveal
           as={Link}
           href="/work/passkey-identity"
-          index={1}
-          className="group grid items-center gap-10 border-t border-rule-warm-2 py-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16"
+          index={3}
+          className={cn(
+            "group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16",
+            "border-b border-rule-warm-2"
+          )}
         >
           <div className="order-2 md:order-1">
             <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
@@ -80,69 +161,6 @@ export function Work() {
           </div>
           <Media ratio="4/3" className="order-1 transition-[border-color] duration-250 group-hover:border-ink-35 md:order-2">
             <PkMarquee images={PK_IMAGES} />
-          </Media>
-        </Reveal>
-
-        {/* Row 3 — One Health Cayman */}
-        <Reveal
-          as={Link}
-          href="/work/one-health-cayman"
-          index={2}
-          className="group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16"
-        >
-          <Media ratio="16/9" className="bg-[#0B0B0B] transition-[border-color] duration-250 group-hover:border-ink-35">
-            <AutoVideo
-              src="/assets/video/cayman-1.mp4"
-              poster="/assets/video/cayman-1-poster.webp"
-              rate={1.75}
-              playlist={["/assets/video/cayman-1.mp4", "/assets/video/cayman-2.mp4", "/assets/video/cayman-3.mp4"]}
-            />
-          </Media>
-          <div>
-            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
-              One Health Cayman · 4-portal platform · US &amp; Cayman
-            </p>
-            <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">
-              Building an insurance ecosystem across Cayman and the <em className="em-accent">US</em>
-            </h3>
-            <p className="mt-4 max-w-[565px] text-[16px] leading-[1.6] text-ink-80">
-              Members, employers, providers and admins, 10,000+ people whose care crosses two
-              countries, and no shared source of truth. Two months on the ground, 50+ interviews,
-              VBA and athenahealth underneath.
-            </p>
-          </div>
-        </Reveal>
-
-        {/* Row 4 — Pulse AI */}
-        <Reveal
-          as={Link}
-          href="/work/pulse-ai"
-          index={3}
-          className={cn(
-            "group grid items-center gap-10 border-t border-rule py-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16",
-            "border-b border-rule-warm-2"
-          )}
-        >
-          <div className="order-2 md:order-1">
-            <p className="font-mono text-[12px] tracking-[0.08em] text-ink-55 uppercase">
-              Pulse AI · in beta · updated {BETA_UPDATED}
-            </p>
-            <h3 className="mt-3 font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-light text-ink transition-transform duration-250 group-hover:translate-x-1">
-              An app that navigates the hospital <em className="em-accent">for you</em>
-            </h3>
-            <p className="mt-4 max-w-[565px] text-[16px] leading-[1.6] text-ink-80">
-              An agentic care-navigation layer over NH Care: read the intent, fetch the
-              patient&rsquo;s context, complete the action. Deterministic rules establish truth,
-              the model only summarises. I shipped the product surface — where the summary
-              appears, what it is allowed to say, what it must not — on top of a pipeline that was
-              not mine alone. No results yet, so the honest version is the reasoning.
-            </p>
-          </div>
-          <Media
-            ratio="1549/1000"
-            className="order-1 bg-paper-tint transition-[border-color] duration-250 group-hover:border-ink-35 md:order-2"
-          >
-            <FillImg src="/assets/img/pulse-collage-wide.webp" alt="Pulse AI — summary, findings and organ view" />
           </Media>
         </Reveal>
       </div>

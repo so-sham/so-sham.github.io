@@ -18,7 +18,8 @@ const SPINE = [
   { n: "05", label: "Where AI stops", id: "p-system" },
   { n: "06", label: "What's in the MVP", id: "p-wrong" },
   { n: "07", label: "Targets, not results", id: "p-now" },
-  { n: "08", label: "What I'd do differently", id: "p-watching" },
+  { n: "08", label: "The digital twin", id: "p-twin" },
+  { n: "09", label: "What I'd do differently", id: "p-watching" },
 ]
 
 export default function PulseAiPage() {
@@ -30,24 +31,25 @@ export default function PulseAiPage() {
           backLabel="← Work"
           title={
             <>
-              An app that navigates the hospital <em className="em-accent">for you</em>
+              An <em className="em-accent font-semibold">agentic</em> AI for a whole hospital, and
+              the eval layer that keeps it honest
             </>
           }
-          dek="An agentic care-navigation layer inside NH Care: understand what the patient is asking, retrieve their context, and turn it into an action. In beta, with targets and no results yet."
-          status={`In beta · updated ${BETA_UPDATED}`}
+          dek="One conversational surface across four intelligence areas — book by symptom, read documents, query records, answer anything about the hospital — with rules to establish what's true and put an eval layer between the model and anything a patient might mistake for a diagnosis. In beta with up to 1,000 users."
+          status={`In beta · up to 1,000 users · updated ${BETA_UPDATED}`}
           metadata={[
             { label: "Product", value: "NH Care · Pulse AI" },
             { label: "Market", value: "India" },
             { label: "Stack", value: "Rules → Azure OpenAI → validation → Redis" },
-            { label: "Scope", value: "MVP · 4 intelligence areas" },
+            { label: "Scope", value: "MVP · 4 intelligence areas · 15,797 services mapped" },
             { label: "Read", value: "5 min" },
           ]}
         />
       }
       spineItems={SPINE}
       footerNote="Live status. If this flag is stale, tell me."
-      prev={{ label: "← One Health Cayman", href: "/work/one-health-cayman" }}
-      next={{ label: "All work →", href: "/#sec-work" }}
+      prev={{ label: "← All work", href: "/#sec-work" }}
+      next={{ label: "Next: One Health Cayman →", href: "/work/one-health-cayman" }}
     >
       <CsHeading n="01" id="p-bet">
         Healthcare apps store information. Patients need help making sense of it.
@@ -294,7 +296,86 @@ export default function PulseAiPage() {
         context, anticipate needs.
       </CsPara>
 
-      <CsHeading n="08" id="p-watching">
+      <CsHeading n="08" id="p-twin">
+        The digital twin: 15,797 services onto a body.
+      </CsHeading>
+      <CsPara>
+        The piece I am building now. Pulse needed a patient-facing view of everything the hospital
+        had ever done for you, and the only available source was the Athma service master —
+        15,797 billing items across 11 service types, covering lab tests, surgeries,
+        consultations, radiology and administrative fees. The goal was an interactive body map a
+        patient could read, which meant every one of those items had to land on an organ, and
+        every placement had to be clinically defensible. A root canal filed under Digestion, or
+        cataract surgery under Nervous, and the whole map stops being trustworthy.
+      </CsPara>
+      <CsPara>
+        The classifier is a deterministic, ordered, specific-to-general keyword engine. Same
+        principle as the summary pipeline: rules do the classifying, not a model.
+      </CsPara>
+      <CsPara>
+        The initial ten-organ model left 1,767 services (11.2%) with nowhere to go, so four nodes
+        were added — each one earning its place by volume rather than completeness for its own
+        sake.
+      </CsPara>
+      <CsTable
+        caption="Organ nodes added to the model"
+        columns={["Node added", "Services", "Share"]}
+        rows={[
+          ["Mouth & Teeth — dental, oral, maxillofacial", "708", "4.5%"],
+          ["Ear, Nose & Throat — hearing, balance, sinus, vocal", "533", "3.4%"],
+          ["Eyes — cataract, retinal, ophthalmic", "399", "2.5%"],
+          ["Breast — mammography, mastectomy, male breast", "127", "0.8%"],
+        ]}
+      />
+      <CsPara>Model goes from 10 nodes to 14.</CsPara>
+      <CsPara>
+        A further 3,346 services (21.2%) do not belong to a single organ at all, and forcing them
+        onto one would have been the easy wrong answer. They became three cross-cutting layers
+        instead. <strong>Cancer care</strong> is a site tag rather than
+        a node — a mastectomy tags Breast, brain radiotherapy tags Nervous.{" "}
+        <strong>General diagnostics</strong> covers items whose site is
+        only known at order time, like a generic ultrasound-guided drainage.{" "}
+        <strong>Non-clinical and administrative</strong> — room charges,
+        nursing fees, drug level assays — is suppressed from the twin entirely, because a long ICU
+        stay should not turn an organ node amber.
+      </CsPara>
+      <CsPara>
+        Most of the work was defect-hunting in the classifier. Trailing complexity codes and{" "}
+        <em>BILATERAL</em> were being read as non-clinical, which had silently misfiled around 180
+        graded cardiac procedures — Norwood, TOF, ALCAPA, thymectomy. Fixing it took the review
+        queue from 1,165 rows to 81. Regex boundary bugs came next: the stem{" "}
+        <em>CHOLECYSTECTOM</em> was blocking <em>LAPCHOLECYSTECTOMY</em>, and punctuated terms like{" "}
+        <em>D-DIMER</em> and <em>C. PEPTIDE</em> were not matching at all. Then roughly twelve
+        misspellings in the raw master itself. The queue ended at 7 genuinely unresolvable rows —
+        0.04% — things like <em>CRYOSURGERY</em> with no site attached.
+      </CsPara>
+      <CsTable
+        caption="Review queue by classifier iteration"
+        columns={["Classifier iteration", "Review queue"]}
+        rows={[
+          ["14-node model, before defect fixes", "1,165 · 7.4%"],
+          ["14 nodes, 3 layers, laterality fix", "81 · 0.5%"],
+          ["Boundary and spelling fixes", <span key="queue-final" className="font-medium text-ink">7 · 0.04%</span>],
+        ]}
+      />
+      <CsPara>
+        For the visual layer I chose Health Icons — CC0, built in collaboration with the WHO —
+        because they are single-path SVG glyphs using <code>currentColor</code>, so the green/amber/red
+        status tint is a CSS property rather than three duplicated asset sets. Servier Medical Art
+        sits behind the optional &ldquo;learn about this organ&rdquo; view.
+      </CsPara>
+      <CsPara>
+        <span className="em-underline">A service is not a finding.</span> That is the rule the
+        whole model rests on. A billing item tells you what was ordered, never whether the organ
+        is healthy — so organ status has to come from ICD diagnoses and lab values, not from the
+        catalogue. Which surfaced a real risk to check before release: Mouth & Teeth is 4.5% of
+        service volume but may have almost no structured findings behind it, so the node could
+        open to an empty screen. Medium and low confidence mappings still need clinician sign-off
+        — Mental Health sitting under Nervous, Prostate under Kidneys — and the Reproductive node
+        has to be removed from paediatric profiles before anything ships.
+      </CsPara>
+
+      <CsHeading n="09" id="p-watching">
         What I&rsquo;d do differently.
       </CsHeading>
       <CsPara>
