@@ -331,11 +331,11 @@ export default function PulseAiPage() {
       <CsPara>
         A further 3,346 services (21.2%) do not belong to a single organ at all, and forcing them
         onto one would have been the easy wrong answer. They became three cross-cutting layers
-        instead. <strong className="font-semibold">Cancer care</strong> is a site tag rather than
+        instead. <strong>Cancer care</strong> is a site tag rather than
         a node — a mastectomy tags Breast, brain radiotherapy tags Nervous.{" "}
-        <strong className="font-semibold">General diagnostics</strong> covers items whose site is
+        <strong>General diagnostics</strong> covers items whose site is
         only known at order time, like a generic ultrasound-guided drainage.{" "}
-        <strong className="font-semibold">Non-clinical and administrative</strong> — room charges,
+        <strong>Non-clinical and administrative</strong> — room charges,
         nursing fees, drug level assays — is suppressed from the twin entirely, because a long ICU
         stay should not turn an organ node amber.
       </CsPara>
@@ -353,15 +353,14 @@ export default function PulseAiPage() {
         caption="Review queue by classifier iteration"
         columns={["Classifier iteration", "Review queue"]}
         rows={[
-          ["Initial 10-node model", "1,165 · 7.4%"],
+          ["14-node model, before defect fixes", "1,165 · 7.4%"],
           ["14 nodes, 3 layers, laterality fix", "81 · 0.5%"],
-          ["Boundary and spelling fixes", <span key="final" className="font-medium text-ink">7 · 0.04%</span>],
+          ["Boundary and spelling fixes", <span key="queue-final" className="font-medium text-ink">7 · 0.04%</span>],
         ]}
       />
       <CsPara>
         For the visual layer I chose Health Icons — CC0, built in collaboration with the WHO —
-        because they are single-path SVG glyphs using{" "}
-        <code className="font-mono text-[0.9em]">currentColor</code>, so the green/amber/red
+        because they are single-path SVG glyphs using <code>currentColor</code>, so the green/amber/red
         status tint is a CSS property rather than three duplicated asset sets. Servier Medical Art
         sits behind the optional &ldquo;learn about this organ&rdquo; view.
       </CsPara>

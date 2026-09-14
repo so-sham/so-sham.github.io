@@ -160,7 +160,7 @@ export function Journey() {
                 {row.specialism.map((s, idx) => (
                   <span key={s}>
                     {idx > 0 && " · "}
-                    <span className={idx === 0 ? "text-accent-blue" : undefined}>{s}</span>
+                    <span className={s === "AI" ? "text-accent-blue" : undefined}>{s}</span>
                   </span>
                 ))}
               </p>
@@ -170,7 +170,7 @@ export function Journey() {
             {row.subChapters && (
               <div className="mt-6 space-y-6 border-l border-rule-warm-2 pl-6">
                 {row.subChapters.map((sc) => (
-                  <div key={sc.date + sc.title}>
+                  <div key={sc.date}>
                     <p className="flex flex-wrap items-baseline gap-x-2.5">
                       <span className="font-mono text-[12px] font-medium text-rust">{sc.date}</span>
                       <span className="font-serif text-[20px] leading-[1.3] font-normal text-ink">{sc.title}</span>
